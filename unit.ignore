@@ -1,0 +1,8 @@
+mod/dist
+mod/.git*
+mod/LICENSE
+mod/README*
+mod/types.js
+
+collider-ext.mix/fix/boot*
+
