@@ -6,7 +6,7 @@ const FX = 5
 
 const df = {
     name: 'textMode',
-    border: .25,
+    border: 0.05,
     scale: 5,
 
     cellWidth: 6,
@@ -53,20 +53,54 @@ class TextMode {
         })
     }
 
-    adjust() {
+    adjustByTarget() {
+        // calculate aspect rate
+        const nativeWidth = this.cellWidth * this.targetWidth
+        const nativeHeight = this.cellHeight * this.targetHeight
+        const aspect = nativeWidth/nativeHeight
+
+        // calculate suitable scale
+        const spanWidth = rx(1) - 2*ry(this.border)
+        const spanHeight = ry(1) - 2*ry(this.border)
+        const hscale = spanWidth / nativeWidth
+        const vscale = spanHeight / nativeHeight
+        let scale = hscale
+        if (hscale > vscale) scale = vscale
+
+        this.scale = scale
+        this.w = nativeWidth * scale
+        this.h = nativeHeight * scale
+        this.x = (rx(1) - this.w)/2
+        this.y = (ry(1) - this.h)/2
+        // TODO remove this abomination!
+        this.hpadding = 0
+        this.vpadding = 0
+        this.tw = this.targetWidth
+        this.th = this.targetHeight
+    }
+
+    adjustBySpan() {
         const cw = this.cellWidth * this.scale
         const ch = this.cellHeight * this.scale
 
         this.w = rx(1) - 2*ry(this.border)
         this.x = (rx(1) - this.w) / 2
-
         this.h = ry(1) - 2*ry(this.border)
         this.y = (ry(1) - this.h) / 2
 
         this.tw = floor(this.w / cw)
         this.th = floor(this.h / ch)
+        // TODO remove this abomination!
         this.hpadding = (this.w - this.tw * cw)/2
         this.vpadding = (this.h - this.th * ch)/2
+    }
+
+    adjust() {
+        if (this.targetWidth && this.targetHeight) {
+            this.adjustByTarget()
+        } else {
+            this.adjustBySpan()
+        }
     }
 
     put(x, y, c, t) {
@@ -199,7 +233,6 @@ class TextMode {
                 const face = this.buf.face[sh]
                 fill(this.palette.ls[face] || this.textColor)
 
-                
                 // character
                 if (symbol) {
                     text(symbol, tx*cw + hw, ty*ch + hh)
