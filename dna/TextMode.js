@@ -9,8 +9,8 @@ const df = {
     border: 0.05,
     scale: 5,
 
-    cellWidth: 10,
-    cellHeight: 8,
+    cellWidth: 9,
+    cellHeight: 10,
     font: '8px pixel-operator-mono8',
 
     textColor: '#ffffff',
@@ -279,6 +279,13 @@ class TextMode {
         return this
     }
 
+    reset() {
+        this.cursor.face = 0
+        this.cursor.back = 0
+        this.cursor.mode = 0
+        return this
+    }
+
     evo(dt) {
         const n = this.tw * this.th
         for (let i = 0; i < n; i++) {
@@ -329,7 +336,7 @@ class TextMode {
                 if (symbol) {
                     text(symbol, tx*cw + hw, ty*ch + hh)
                 } else {
-                    text('.', tx*cw + hw, ty*ch + hh)
+                    //text('.', tx*cw + hw, ty*ch + hh)
                 }
             }
 
