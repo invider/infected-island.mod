@@ -36,7 +36,8 @@ class ViewPort {
                 if (s) {
                     this.tx.put( this.x + x, this.y + y, s)
                 } else {
-                    this.tx.put( this.x + x, this.y + y, '"')
+                    this.tx.put( this.x + x, this.y + y,
+                        env.style.either)
                 }
             }
         }

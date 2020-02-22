@@ -3,6 +3,7 @@
 const keyboard = [
     [ 'KeyW', 'KeyA', 'KeyS', 'KeyD' ],
     [ 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight' ],
+    [ 'KeyK', 'KeyH', 'KeyJ', 'KeyL' ],
 ]
 
 const keyMap = {}

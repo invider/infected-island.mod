@@ -1,3 +1,3 @@
 const style = {
-    background: '#202020',
+    either: '~',
 }
