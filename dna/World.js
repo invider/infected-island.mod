@@ -1,4 +1,3 @@
-
 const df = {
     name: 'world',
 }
@@ -10,8 +9,8 @@ class World {
         this.segment = new dna.Segment({
             x: 0,
             y: 0,
-            w: 64,
-            h: 64,
+            w: 16,
+            h: 16,
         })
         augment(this, df)
         augment(this, st)

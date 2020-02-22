@@ -7,7 +7,7 @@ const FX = 5
 const df = {
     name: 'textMode',
     border: 0.05,
-    scale: 5,
+    scale: 4,
 
     cellWidth: 9,
     cellHeight: 10,

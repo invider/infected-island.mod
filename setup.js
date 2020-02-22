@@ -26,13 +26,13 @@ function setup() {
 
     const viewPort = lab.spawn('ViewPort', {
         world: world,
+        follow: world.hero,
         tx: tx,
-        x: 4,
-        y: 4,
-        w: 16,
+        x: 2,
+        y: 5,
+        w: 8,
         h: 8,
     })
-
     
     tx.out('o').out('n').out('e')
     tx.print(' OK.')

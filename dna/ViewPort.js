@@ -7,6 +7,7 @@ const df = {
         x: 0,
         y: 0,
     },
+    targetEdge: 3,
 }
 
 class ViewPort {
@@ -46,7 +47,26 @@ class ViewPort {
         }
     }
 
+    ensureTargetVisibility(target) {
+        if (!target) return
+
+        if (target.x - this.targetEdge < this.port.x) {
+            this.port.x = target.x - this.targetEdge
+        } else if (target.x + this.targetEdge >=
+                    this.port.x + this.w) {
+            this.port.x = target.x - this.w + this.targetEdge
+        }
+
+        if (target.y - this.targetEdge < this.port.y) {
+            this.port.y = target.y - this.targetEdge
+        } else if (target.y + this.targetEdge >=
+                    this.port.y + this.h) {
+            this.port.y = target.y - this.h + this.targetEdge
+        }
+    }
+
     draw() {
+        this.ensureTargetVisibility(this.follow)
         this.print()
     }
 }
