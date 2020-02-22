@@ -18,6 +18,25 @@ const df = {
     backgroundColor: '#202020',
 }
 
+function copyBuf(src, sw, sh, dw, dh) {
+    const dest = []
+
+    let w = sw
+    let h = sh
+    if (dw < sw) w = dw
+    if (dh < sh) w = dh
+
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            const val = src[y * sw + x]
+            if (val !== undefined) {
+                dest[y * dw + x] = val
+            }
+        }
+    }
+    return dest
+}
+
 class TextMode {
 
     constructor(st) {
@@ -61,6 +80,31 @@ class TextMode {
         })
     }
 
+    resizeTextArea(tw, th) {
+        if (this.tw !== tw || this.th !== th) {
+            const pw = this.tw
+            const ph = this.th
+            const c = copyBuf(this.buf.char, pw, ph, tw, th)
+            const f = copyBuf(this.buf.face, pw, ph, tw, th)
+            const b = copyBuf(this.buf.back, pw, ph, tw, th)
+            const m = copyBuf(this.buf.mode, pw, ph, tw, th)
+            const x = copyBuf(this.buf.fx, pw, ph, tw, th)
+
+            this.buf.char = c
+            this.buf.face = f
+            this.buf.back = b
+            this.buf.mode = m
+            this.buf.fx = x
+            this.tw = tw
+            this.th = th
+        }
+    }
+
+    adjustPos() {
+        this.x = (rx(1) - this.w)/2
+        this.y = (ry(1) - this.h)/2
+    }
+
     adjustByTarget() {
         // calculate aspect rate
         const nativeWidth = this.cellWidth * this.targetWidth
@@ -75,32 +119,27 @@ class TextMode {
         let scale = hscale
         if (hscale > vscale) scale = vscale
 
+        this.resizeTextArea(this.targetWidth, this.targetHeight)
         this.scale = scale
         this.w = nativeWidth * scale
         this.h = nativeHeight * scale
-        this.x = (rx(1) - this.w)/2
-        this.y = (ry(1) - this.h)/2
-        // TODO remove this abomination!
-        this.hpadding = 0
-        this.vpadding = 0
-        this.tw = this.targetWidth
-        this.th = this.targetHeight
+        this.adjustPos()
     }
 
     adjustBySpan() {
         const cw = this.cellWidth * this.scale
         const ch = this.cellHeight * this.scale
 
-        this.w = rx(1) - 2*ry(this.border)
-        this.x = (rx(1) - this.w) / 2
-        this.h = ry(1) - 2*ry(this.border)
-        this.y = (ry(1) - this.h) / 2
+        const spanWidth = rx(1) - 2*ry(this.border)
+        const spanHeight = ry(1) - 2*ry(this.border)
 
-        this.tw = floor(this.w / cw)
-        this.th = floor(this.h / ch)
-        // TODO remove this abomination!
-        this.hpadding = (this.w - this.tw * cw)/2
-        this.vpadding = (this.h - this.th * ch)/2
+        this.resizeTextArea(
+                floor(spanWidth / cw),
+                floor(spanHeight / ch))
+
+        this.w = this.tw * cw
+        this.h = this.th * ch
+        this.adjustPos()
     }
 
     adjust() {
@@ -258,8 +297,7 @@ class TextMode {
         fill(this.backgroundColor)
         rect(this.x, this.y, this.w, this.h)
 
-        translate(this.x + this.hpadding,
-                    this.y + this.vpadding)
+        translate(this.x, this.y)
         scale(this.scale, this.scale)
 
         font(this.font)
