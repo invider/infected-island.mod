@@ -247,6 +247,8 @@ var $ = <any>{
                             name:  1,
             },
         },
+            fx:  {
+        },
             Segment:  function(): any {},
             TextMode:  function(): any {},
     },
@@ -590,6 +592,8 @@ var dna = <any>{
             },
                     name:  1,
         },
+    },
+    fx:  {
     },
     Segment:  function(): any {},
     TextMode:  function(): any {},

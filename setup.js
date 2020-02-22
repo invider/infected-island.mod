@@ -8,5 +8,7 @@ function setup() {
     tx.at(0, 1).print('Hello').println(' World!')
 
     tx.face(3).println('Alert!')
-    tx.face(1).back(2).println('More...')
+    tx.face(1).back(2).mode(1).set({
+        period: 0.3,
+    }).println('More...')
 }

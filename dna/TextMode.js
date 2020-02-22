@@ -9,9 +9,9 @@ const df = {
     border: 0.05,
     scale: 5,
 
-    cellWidth: 6,
+    cellWidth: 10,
     cellHeight: 8,
-    font: '8px zekton',
+    font: '8px pixel-operator-mono8',
 
     textColor: '#ffffff',
     borderColor: '#101010',
@@ -28,12 +28,20 @@ class TextMode {
             mode: [],
             fx: [],   // effect parameters objects
         }
+        
+        this.fx = dna.fx
+        // make sure all fx methods are present
+        const fxBase = this.fx[0]
+        for (let i = 1; i < this.fx.length; i++) {
+            supplement(this.fx[i], fxBase)
+        }
 
         this.cursor = {
             x: 0,
             y: 0,
             face: 0,
             back: 0,
+            mode: 0,
         }
 
         augment(this, df)
@@ -106,23 +114,37 @@ class TextMode {
     put(x, y, c, t) {
         if (!c) return
         if (x >= 0 && x < this.tw && y >= 0 && y < this.th) {
-            if (c.length > 1) c = c.substring(0, 1)
 
+            const i = y * this.tw + x
             switch(t) {
             case FACE:
-                    this.buf.face[y * this.tw + x] = c
-                    break;
+                this.buf.face[i] = c
+                break;
             case BACK:
-                    this.buf.back[y * this.tw + x] = c
-                    break;
+                this.buf.back[i] = c
+                break;
             case MODE:
-                    this.buf.mode[y * this.tw + x] = c
-                    break;
+                if (!isNumber(c) || c < 0 || c >= this.fx.length) throw `wrong mode [${c}]`
+
+                const prevMode = this.buf.mode[i]
+                if (prevMode) {
+                    this.fx[prevMode].unset(
+                        this.buf.fx[i], this, i)
+                }
+                this.buf.mode[i] = c
+                if (!this.buf.fx[i]) {
+                    this.buf.fx[i] = {}
+                }
+                this.fx[c].set(this.buf.fx[i], this, i)
+                break;
+
             case FX:
-                    this.buf.fx[y * this.tw + x] = c
-                    break;
+                this.buf.fx[i] = augment(this.buf.fx[i], c)
+                break;
+
             default:
-                    this.buf.char[y * this.tw + x] = c
+                if (c.length > 1) c = c.substring(0, 1)
+                this.buf.char[i] = c
             }
         }
         return this
@@ -169,6 +191,14 @@ class TextMode {
             this.put(this.cursor.x, this.cursor.y,
                     this.cursor.back, BACK)
         }
+        if (this.cursor.mode) {
+            this.put(this.cursor.x, this.cursor.y,
+                this.cursor.mode, MODE)
+            if (this.cursor.fx) {
+                this.put(this.cursor.x, this.cursor.y,
+                    this.cursor.fx, FX)
+            }
+        }
         this.next()
         return this
     }
@@ -195,6 +225,30 @@ class TextMode {
     back(i) {
         this.cursor.back = i
         return this
+    }
+
+    mode(i) {
+        if (!isNumber(i) || i < 0 || i >= this.fx.length) {
+            throw `wrong mode [${c}]`
+        }
+        this.cursor.mode = i
+        return this
+    }
+
+    set(settings) {
+        this.cursor.fx = settings
+        return this
+    }
+
+    evo(dt) {
+        const n = this.tw * this.th
+        for (let i = 0; i < n; i++) {
+            const mode = this.buf.mode[i]
+            if (mode) {
+                this.fx[mode].evo(dt,
+                    this.buf.fx[i], this, i)
+            }
+        }
     }
 
     draw() {
@@ -226,7 +280,7 @@ class TextMode {
                 const back = this.buf.back[sh]
                 if (back) {
                     fill(this.palette.ls[back])
-                    rect(tx*cw, ty*ch, cw, ch)
+                    rect(tx*cw, ty*ch, cw + 1, ch + 1)
                 }
 
                 // color
