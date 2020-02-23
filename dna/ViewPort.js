@@ -27,12 +27,19 @@ class ViewPort {
     }
 
     calculateFoV(observer) {
+        const world = this.world
+
         return lib.fov({
                 x: observer.x,
                 y: observer.y,
-                r: 6,
+                r: observer.fovRadius || env.tune.defaultFOV,
             },
-            (x, y) => true
+            (lx, ly) => {
+                // asked in local observer coordinates
+                const gx = observer.x + lx
+                const gy = observer.y + ly
+                return world.transparent(gx, gy)
+            }
         )
     }
 

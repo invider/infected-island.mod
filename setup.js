@@ -1,11 +1,15 @@
 function setup() {
+
+    // set Field of View algorithm
+    lib.attach(lib.shaddowFov, 'fov')
+
     const world = lab.spawn('World', {})
 
     world.set(5, 2, '#')
-        .set(5, 3, '#')
-        .set(5, 4, '#')
-        .set(5, 5, '#')
-        .set(5, 6, '#')
+        //.set(5, 3, '#')
+        //.set(5, 4, '#')
+        //.set(5, 5, '#')
+        //.set(5, 6, '#')
         .set(5, 7, '#')
         .set(5, 8, '#')
         .set(5, 9, '#')

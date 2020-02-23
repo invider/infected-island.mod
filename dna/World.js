@@ -51,4 +51,11 @@ class World extends sys.Frame {
         if (env.tune.solid.includes(land)) return false
         return true
     }
+
+    transparent(x, y) {
+        const land = this.segment.get(x, y)
+        if (!land) return true
+        if (env.tune.opaque.includes(land)) return false
+        return true
+    }
 }
