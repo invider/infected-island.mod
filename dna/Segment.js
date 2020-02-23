@@ -39,16 +39,10 @@ class Segment {
     }
 
     lset(x, y, l) {
-        if (x >= 0 && x <= this.w && y >= 0 && y <= this.h) {
+        if (x >= 0 && x < this.w && y >= 0 && y < this.h) {
             this.land[y * this.w + x] = l
             return l
         }
-    }
-
-    fill(land) {
-        for (let y = 0; y < this.h; y++)
-            for (let x = 0; x < this.w; x++) {
-            }
     }
 
     //
@@ -72,12 +66,12 @@ class Segment {
     }
 
     linside(x, y) {
-        return (x >= 0 && x <= this.w && y >= 0 && y <= this.h)
+        return (x >= 0 && x < this.w && y >= 0 && y < this.h)
     }
 
     ginside(x, y) {
         x = x - this.x
         y = y - this.y
-        return (x >= 0 && x <= this.w && y >= 0 && y <= this.h)
+        return (x >= 0 && x < this.w && y >= 0 && y < this.h)
     }
 }

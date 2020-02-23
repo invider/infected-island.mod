@@ -42,8 +42,8 @@ class ViewPort {
             }
         }
 
-        for (let i = 0; i < this.world.mob.length; i++) {
-            const mob = this.world.mob[i]
+        for (let i = 0; i < this.world.mob._ls.length; i++) {
+            const mob = this.world.mob._ls[i]
             if (mob && !mob.dead) this.printMob(mob)
         }
     }

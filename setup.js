@@ -17,6 +17,7 @@ function setup() {
         .set(4, 6, '-')
 
     world.hero = world.spawn(dna.Mob, {
+        name: 'Nameless Hero',
         x: 2,
         y: 2,
         symbol: '@',

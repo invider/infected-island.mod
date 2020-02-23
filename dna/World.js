@@ -2,11 +2,19 @@ const df = {
     name: 'world',
 }
 
-class World {
+class World extends sys.Frame {
 
     constructor(st) {
-        this.mob = []
-        this.prop = []
+        super()
+        this.attach(new sys.Frame({
+            name: 'mob',
+        }))
+        this.attach(new sys.Frame({
+            name: 'prop',
+        }))
+        //this.mob = []
+        //this.prop = []
+
         this.segment = new dna.Segment({
             x: 0,
             y: 0,
@@ -20,8 +28,8 @@ class World {
     spawn(dna, st) {
         const e = new dna(st)
 
-        if (e.next) this.mob.push(e)
-        else this.prop.push(e)
+        if (e.next) this.mob.attach(e)
+        else this.prop.attach(e)
         e.__ = this
 
         if (e.init) e.init()
