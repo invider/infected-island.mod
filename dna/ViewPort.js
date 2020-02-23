@@ -26,18 +26,49 @@ class ViewPort {
         }
     }
 
+    calculateFoV(observer) {
+        return lib.fov({
+                x: observer.x,
+                y: observer.y,
+                r: 6,
+            },
+            (x, y) => true
+        )
+    }
+
     print() {
         const tx = this.tx
         const port = this.port
+        const fov = this.calculateFoV(this.world.hero)
+
+        let visCount = 0
+        let count = 0
+        fov.map.forEach(e => {
+            if (e) count++
+        })
+        tx.at(12, 0).print('fov: ' + count)
 
         for (let y = 0; y < this.h; y++) {
             for (let x = 0; x < this.w; x++) {
-                const s = this.world.get(port.x + x, port.y + y)
-                if (s) {
-                    this.tx.put( this.x + x, this.y + y, s)
+                const gx = port.x + x
+                const gy = port.y + y
+                const vx = this.x + x
+                const vy = this.y + y
+                const s = this.world.get(gx, gy)
+
+                // determine visibility state
+                const visible = fov.test(gx, gy)
+                if (visible) {
+                    visCount++
+                    this.tx.put(vx, vy, 4, this.tx.FACE)
                 } else {
-                    this.tx.put( this.x + x, this.y + y,
-                        env.style.either)
+                    this.tx.put(vx, vy, 1, this.tx.FACE)
+                }
+
+                if (s) {
+                    this.tx.put(vx, vy, s)
+                } else {
+                    this.tx.put(vx, vy, env.style.either)
                 }
             }
         }
@@ -46,6 +77,8 @@ class ViewPort {
             const mob = this.world.mob._ls[i]
             if (mob && !mob.dead) this.printMob(mob)
         }
+
+        tx.at(12, 1).print('vis: ' + visCount)
     }
 
     ensureTargetVisibility(target) {

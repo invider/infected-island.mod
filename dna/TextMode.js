@@ -68,9 +68,18 @@ class TextMode {
         this.borderColor = this.palette.ls[0],
         this.backgroundColor = this.palette.dir.base,
         this.textColor = this.palette.dir.text
+        this.setConstants()
 
         augment(this, st) 
         this.adjust()
+    }
+
+    setConstants() {
+        this.CHAR = CHAR
+        this.FACE = FACE
+        this.BACK = BACK
+        this.MODE = MODE
+        this.FX = FX
     }
 
     init() {
@@ -151,7 +160,6 @@ class TextMode {
     }
 
     put(x, y, c, t) {
-        if (!c) return
         if (x >= 0 && x < this.tw && y >= 0 && y < this.th) {
 
             const i = y * this.tw + x

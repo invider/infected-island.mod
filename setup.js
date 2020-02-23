@@ -48,18 +48,20 @@ function setup() {
         follow: world.hero,
         tx: tx,
         x: 2,
-        y: 5,
-        w: 8,
-        h: 8,
+        y: 2,
+        w: 12,
+        h: 12,
     })
     
+    /*
     tx.out('o').out('n').out('e')
     tx.print(' OK.')
 
     tx.at(0, 1).print('Hello').println(' World!')
 
     tx.face(3).println('Alert!')
-    tx.face(1).back(2).mode(1).set({
+    tx.face(2).back(3).mode(1).set({
         period: 0.5,
     }).println('More...')
+    */
 }
