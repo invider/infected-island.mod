@@ -1,4 +1,5 @@
 const df = {
+    name: 'viewport',
     x: 0,
     y: 0,
     w: 10,
@@ -15,6 +16,11 @@ class ViewPort {
     constructor(st) {
         augment(this, df)
         augment(this, st)
+    }
+
+    init() {
+        this.w = this.tx.tw - 2
+        this.h = this.tx.th - 2
     }
 
     printMob(mob) {
@@ -35,6 +41,7 @@ class ViewPort {
                 r: observer.fovRadius || env.tune.defaultFOV,
             },
             (lx, ly) => {
+                // transparency test for FoV algorithm
                 // asked in local observer coordinates
                 const gx = observer.x + lx
                 const gy = observer.y + ly
@@ -47,13 +54,7 @@ class ViewPort {
         const tx = this.tx
         const port = this.port
         const fov = this.calculateFoV(this.world.hero)
-
-        let visCount = 0
-        let count = 0
-        fov.map.forEach(e => {
-            if (e) count++
-        })
-        tx.at(12, 0).print('fov: ' + count)
+        this.world.exploreFOV(fov)
 
         for (let y = 0; y < this.h; y++) {
             for (let x = 0; x < this.w; x++) {
@@ -64,18 +65,23 @@ class ViewPort {
                 const s = this.world.get(gx, gy)
 
                 // determine visibility state
+                const explored = this.world.isExplored(gx, gy)
                 const visible = fov.test(gx, gy)
+
                 if (visible) {
-                    visCount++
                     this.tx.put(vx, vy, 4, this.tx.FACE)
                 } else {
                     this.tx.put(vx, vy, 1, this.tx.FACE)
                 }
 
-                if (s) {
-                    this.tx.put(vx, vy, s)
+                if (explored) {
+                    if (s) {
+                        this.tx.put(vx, vy, s)
+                    } else {
+                        this.tx.put(vx, vy, env.style.either)
+                    }
                 } else {
-                    this.tx.put(vx, vy, env.style.either)
+                    this.tx.put(vx, vy, env.style.unexplored)
                 }
             }
         }
@@ -84,11 +90,9 @@ class ViewPort {
             const mob = this.world.mob._ls[i]
             if (mob && !mob.dead) this.printMob(mob)
         }
-
-        tx.at(12, 1).print('vis: ' + visCount)
     }
 
-    ensureTargetVisibility(target) {
+    moveOverTarget(target) {
         if (!target) return
 
         if (target.x - this.targetEdge < this.port.x) {
@@ -107,7 +111,7 @@ class ViewPort {
     }
 
     draw() {
-        this.ensureTargetVisibility(this.follow)
+        this.moveOverTarget(this.follow)
         this.print()
     }
 }

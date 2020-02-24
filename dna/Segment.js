@@ -23,6 +23,7 @@ class Segment {
 
     constructor(st) {
         this.land = []
+        this.explored = []
         this.segments = []
         this.segments[quadrant.center] = this
 
@@ -83,6 +84,33 @@ class Segment {
         }
     }
 
+    isExplored(x, y) {
+        const quad = this.gquadrant(x, y)
+
+        if (quad === 0) {
+            return !!this.explored[ (y-this.y) * this.w + (x-this.x) ]
+        }
+
+        const segment = this.segments[quad]
+        if (!segment) return
+
+        return segment.isExplored(x, y)
+    }
+
+    explore(x, y) {
+        const quad = this.gquadrant(x, y)
+
+        if (quad === 0) {
+            this.explored[ (y-this.y) * this.w + (x - this.x) ] = true
+            return this
+        }
+
+        const segment = this.segments[quad]
+        if (!segment) return
+
+        return segment.explore(x, y)
+    }
+
     get(x, y) {
         const quad = this.gquadrant(x, y)
 
@@ -116,6 +144,7 @@ class Segment {
 
         return segment.set(x, y, l)
     }
+
 
     lget(x, y) {
         const l = this.land[y * this.w + x]

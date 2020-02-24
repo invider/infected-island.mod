@@ -63,8 +63,8 @@ function setup() {
         world: world,
         follow: world.hero,
         tx: tx,
-        x: 2,
-        y: 2,
+        x: 1,
+        y: 1,
         w: 12,
         h: 12,
     })

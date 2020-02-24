@@ -1,3 +1,4 @@
 const style = {
     either: '~',
+    unexplored: ' ',
 }

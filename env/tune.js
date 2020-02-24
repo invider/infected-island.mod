@@ -1,5 +1,5 @@
 const tune = {
-    defaultFOV: 16,
+    defaultFOV: 7,
     solid: ['#', '|', '-', '+'],
     opaque: ['#', '-'],
 }

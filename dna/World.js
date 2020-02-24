@@ -46,6 +46,26 @@ class World extends sys.Frame {
         return this
     }
 
+    isExplored(x, y) {
+        const explored = this.segment.isExplored(x, y)
+        if (explored === undefined) return true
+        return explored
+    }
+
+    explore(x, y) {
+        this.segment.explore(x, y)
+    }
+
+    exploreFOV(fov) {
+        for (let ly = 0; ly < fov.h; ly++) {
+            for (let lx = 0; lx < fov.w; lx++) {
+                if (fov.map[ly * fov.w + lx]) {
+                    this.explore(lx - fov.dx, ly - fov.dy)
+                }
+            }
+        }
+    }
+
     free(x, y) {
         const land = this.segment.get(x, y)
         if (!land) return false
