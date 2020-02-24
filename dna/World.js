@@ -21,6 +21,7 @@ class World extends sys.Frame {
             w: 16,
             h: 16,
         })
+
         augment(this, df)
         augment(this, st)
     }

@@ -5,6 +5,12 @@ function setup() {
 
     const world = lab.spawn('World', {})
 
+    world.segment.attach(new dna.Segment({
+        w: 16,
+        h: 16,
+        def: ',',
+    }), 'east')
+
     world.set(5, 2, '#')
         //.set(5, 3, '#')
         //.set(5, 4, '#')
@@ -19,6 +25,12 @@ function setup() {
 
         .set(3, 6, '-')
         .set(4, 6, '-')
+
+        .set(16, 2, '#')
+        .set(16, 3, '#')
+        .set(20, 4, '#')
+        .set(20, 5, '#')
+
 
     world.hero = world.spawn(dna.Mob, {
         name: 'Nameless Hero',
