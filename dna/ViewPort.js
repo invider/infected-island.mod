@@ -52,9 +52,12 @@ class ViewPort {
 
     print() {
         const tx = this.tx
+        const cidx = lib.cidx
         const port = this.port
         const fov = this.calculateFoV(this.world.hero)
         this.world.exploreFOV(fov)
+
+        tx.reset()
 
         for (let y = 0; y < this.h; y++) {
             for (let x = 0; x < this.w; x++) {
@@ -65,13 +68,14 @@ class ViewPort {
                 const s = this.world.get(gx, gy)
 
                 // determine visibility state
-                const explored = this.world.isExplored(gx, gy)
+                const explored = !env.tune.hideUnexplored
+                            || this.world.isExplored(gx, gy)
                 const visible = fov.test(gx, gy)
 
                 if (visible) {
-                    this.tx.put(vx, vy, 4, this.tx.FACE)
+                    this.tx.put(vx, vy, cidx('text'), this.tx.FACE)
                 } else {
-                    this.tx.put(vx, vy, 1, this.tx.FACE)
+                    this.tx.put(vx, vy, cidx('shaddow'), this.tx.FACE)
                 }
 
                 if (explored) {
@@ -110,8 +114,19 @@ class ViewPort {
         }
     }
 
+    stat() {
+        this.tx
+            .reset()
+            .at(1, 0)
+            .back(lib.cidx('baseHi'))
+            .face(lib.cidx('alert'))
+            .print('' + this.world.hero.x + ':'
+                        + this.world.hero.y)
+    }
+
     draw() {
         this.moveOverTarget(this.follow)
         this.print()
+        this.stat()
     }
 }

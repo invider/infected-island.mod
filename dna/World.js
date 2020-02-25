@@ -72,7 +72,7 @@ class World extends sys.Frame {
 
     free(x, y) {
         const land = this.segment.get(x, y)
-        if (!land) return false
+        if (!land) return env.tune.flowInAether
         if (env.tune.solid.includes(land)) return false
         return true
     }

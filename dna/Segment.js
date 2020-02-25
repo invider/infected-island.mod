@@ -77,6 +77,7 @@ class Segment {
     explore(x, y) {
         if (this.ginside(x, y)) {
             this.explored[ (y-this.y) * this.w + (x - this.x) ] = true
+            if (this.onExplored) this.onExplored(x, y)
             return this
         }
         // looking down the tree

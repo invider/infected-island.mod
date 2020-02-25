@@ -3,25 +3,41 @@ function setup() {
     // set Field of View algorithm
     lib.attach(lib.shaddowFov, 'fov')
 
+
     const world = lab.spawn('World', {})
     const s1 = world.segment
-
-    const s2 = world.place(new dna.Segment({
-        def: ',',
-    }), 'east', s1)
-
     const AS = dna.AetherSegment
+
+    function genNext() {
+        const nextLand = world.place(new dna.Segment({
+            def: ',',
+            onExplored: function(x, y) {
+                if (this.lx(x) > this.w - 2) {
+                    genNext()
+                    this.onExplored = false
+                }
+            },
+        }), 'east', s1)
+        lib.gen.binaryRooms(nextLand)
+        world.place(new AS(), 'north', nextLand)
+        world.place(new AS(), 'south', nextLand)
+        log('generated next land at ' + nextLand.x + 'x' + nextLand.y)
+    }
+
+    genNext()
+
     world.place(new AS(), 'west')
     world.place(new AS(), 'north-west')
     world.place(new AS(), 'south-west')
     world.place(new AS(), 'north')
     world.place(new AS(), 'south')
-    world.place(new AS(), 'east')
 
+    /*
     world.place(new AS(), 'north', s2)
     world.place(new AS(), 'south', s2)
     world.place(new AS(), 'north-east', s2)
     world.place(new AS(), 'south-east', s2)
+    */
 
 
     world.set(5, 2, '#')
@@ -39,10 +55,12 @@ function setup() {
         .set(3, 6, '-')
         .set(4, 6, '-')
 
+    /*
         .set(16, 2, '#')
         .set(16, 3, '#')
         .set(20, 4, '#')
         .set(20, 5, '#')
+    */
 
 
     world.hero = world.spawn(dna.Mob, {
