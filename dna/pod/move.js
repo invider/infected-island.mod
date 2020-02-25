@@ -3,7 +3,7 @@ const name = 'move'
 function init() {}
 
 function up() {
-    const w = this.__.__
+    const w = this.__._
     const x = this.__.x
     const y = this.__.y - 1
     if (w.free(x, y)) {
@@ -12,7 +12,7 @@ function up() {
 }
 
 function left() {
-    const w = this.__.__
+    const w = this.__._
     const x = this.__.x - 1
     const y = this.__.y
     if (w.free(x, y)) {
@@ -21,7 +21,7 @@ function left() {
 }
 
 function down() {
-    const w = this.__.__
+    const w = this.__._
     const x = this.__.x
     const y = this.__.y + 1
     if (w.free(x, y)) {
@@ -30,7 +30,7 @@ function down() {
 }
 
 function right() {
-    const w = this.__.__
+    const w = this.__._
     const x = this.__.x + 1
     const y = this.__.y
     if (w.free(x, y)) {

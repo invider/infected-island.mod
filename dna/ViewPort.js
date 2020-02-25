@@ -8,7 +8,7 @@ const df = {
         x: 0,
         y: 0,
     },
-    targetEdge: 3,
+    targetEdge: 5,
 }
 
 class ViewPort {

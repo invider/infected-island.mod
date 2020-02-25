@@ -4,19 +4,25 @@ function setup() {
     lib.attach(lib.shaddowFov, 'fov')
 
     const world = lab.spawn('World', {})
+    const s1 = world.segment
 
-    const s2 = world.segment.attach(new dna.Segment({
+    const s2 = world.place(new dna.Segment({
         def: ',',
-    }), 'east')
+    }), 'east', s1)
 
-    world.segment.attach(new dna.AetherSegment(), 'north')
-    world.segment.attach(new dna.AetherSegment(), 'west')
-    world.segment.attach(new dna.AetherSegment(), 'south')
-    //world.segment.attach(new dna.AetherSegment(), 'north-east')
+    const AS = dna.AetherSegment
+    world.place(new AS(), 'west')
+    world.place(new AS(), 'north-west')
+    world.place(new AS(), 'south-west')
+    world.place(new AS(), 'north')
+    world.place(new AS(), 'south')
+    world.place(new AS(), 'east')
 
-    s2.attach(new dna.AetherSegment(), 'north')
-    s2.attach(new dna.AetherSegment(), 'east')
-    s2.attach(new dna.AetherSegment(), 'south')
+    world.place(new AS(), 'north', s2)
+    world.place(new AS(), 'south', s2)
+    world.place(new AS(), 'north-east', s2)
+    world.place(new AS(), 'south-east', s2)
+
 
     world.set(5, 2, '#')
         //.set(5, 3, '#')

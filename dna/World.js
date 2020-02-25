@@ -18,12 +18,16 @@ class World extends sys.Frame {
         this.segment = new dna.Segment({
             x: 0,
             y: 0,
-            w: 16,
-            h: 16,
         })
 
         augment(this, df)
         augment(this, st)
+    }
+
+    place(segment, quad, target) {
+        if (!target) target = this.segment
+        if (quad) lib.segment.positionSegment(segment, quad, target)
+        return this.segment.attach(segment)
     }
 
     spawn(dna, st) {
@@ -31,7 +35,7 @@ class World extends sys.Frame {
 
         if (e.next) this.mob.attach(e)
         else this.prop.attach(e)
-        e.__ = this
+        e._ = this
 
         if (e.init) e.init()
         return e

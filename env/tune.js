@@ -1,5 +1,5 @@
 const tune = {
-    defaultFOV: 7,
+    defaultFOV: 5,
     defaultSegmentWidth: 16,
     defaultSegmentHeight: 16,
     solid: ['#', '|', '-', '+'],
