@@ -5,11 +5,18 @@ function setup() {
 
     const world = lab.spawn('World', {})
 
-    world.segment.attach(new dna.Segment({
-        w: 16,
-        h: 16,
+    const s2 = world.segment.attach(new dna.Segment({
         def: ',',
     }), 'east')
+
+    world.segment.attach(new dna.AetherSegment(), 'north')
+    world.segment.attach(new dna.AetherSegment(), 'west')
+    world.segment.attach(new dna.AetherSegment(), 'south')
+    //world.segment.attach(new dna.AetherSegment(), 'north-east')
+
+    s2.attach(new dna.AetherSegment(), 'north')
+    s2.attach(new dna.AetherSegment(), 'east')
+    s2.attach(new dna.AetherSegment(), 'south')
 
     world.set(5, 2, '#')
         //.set(5, 3, '#')

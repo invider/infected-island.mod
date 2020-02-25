@@ -78,7 +78,7 @@ class ViewPort {
                     if (s) {
                         this.tx.put(vx, vy, s)
                     } else {
-                        this.tx.put(vx, vy, env.style.either)
+                        this.tx.put(vx, vy, env.style.aether)
                     }
                 } else {
                     this.tx.put(vx, vy, env.style.unexplored)

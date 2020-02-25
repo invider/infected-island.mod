@@ -3,8 +3,10 @@
 // boot config values
 let base = hsl(.1, 0, 0)
 let content = hsl(.54, 1, .5)
-let contentLow = hsl(.54, 1, .5)
+let contentLow = hsl(.1, 0, 0)
+let contentErr = hsl(.01, 1, .55) // collider orange
 let fadeBase = hsl(.1, 0, 0)
+//let content = hsl(.1, 1, .5) // collider orange
 //const COLOR = hsl(.54, 1, .5)
 //const COLOR = hsl(.98, 1, .6)
 //const COLOR = hsl(.1, 1, .5)
@@ -31,6 +33,7 @@ let lowFont = FBASE*.75 + 'px zekton'
 
 const R3 = ry(.4)
 const POWERED_BY = 'Powered by Collider.JAM'
+const ERROR = 'Error'
 let poweredByFont = FBASE+'px zekton'
 
 const ACTIVE = 0
@@ -467,11 +470,19 @@ function updateLoadingStatus() {
     if (state === 'loading' || state === 'holding') {
         // we are faking percentage to include time left to hold
         if (hold === 0) amount = min(loaded/included, 1)
-        else amount = min((loaded/included + time/hold)/2, 1)
+        else {
+            const holdRate = min(time/hold, 1)
+            amount = min((loaded/included + holdRate)/2, 1)
+        }
     }
 
-    const percent = Math.round(amount * 100)
+    const percent = Math.floor(amount * 100)
     label = `${percent}%`
+
+    if (res._errors) {
+        label = ERROR
+        content = contentErr
+    }
 }
 
 function evoBoot(dt) {

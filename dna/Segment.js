@@ -1,3 +1,7 @@
+//
+// @depends(env/tune)
+//
+
 const quadrant = {
     center: 0,
     south: 8,
@@ -13,8 +17,8 @@ const quadrant = {
 const df = {
     x: 0,
     y: 0,
-    w: 1,
-    h: 1,
+    w: env.tune.defaultSegmentWidth,
+    h: env.tune.defaultSegmentHeight,
     def: '.',
 }
 
@@ -25,7 +29,6 @@ class Segment {
         this.land = []
         this.explored = []
         this.segments = []
-        this.segments[quadrant.center] = this
 
         augment(this, df)
         augment(this, st)
@@ -80,7 +83,7 @@ class Segment {
                     segment.y = this.y + segment.h
                     break;
             }
-            return this
+            return segment
         }
     }
 
@@ -91,10 +94,17 @@ class Segment {
             return !!this.explored[ (y-this.y) * this.w + (x-this.x) ]
         }
 
-        const segment = this.segments[quad]
-        if (!segment) return
-
-        return segment.isExplored(x, y)
+        //const segment = this.segments[quad]
+        //if (!segment) return
+        //return segment.isExplored(x, y)
+        for (let i = 0; i < this.segments.length; i++) {
+            const segment = this.segments[i]
+            if (segment) {
+                const expl = segment.isExplored(x, y)
+                if (expl !== undefined) return expl
+            }
+        }
+        return
     }
 
     explore(x, y) {
@@ -122,10 +132,16 @@ class Segment {
             return l || this.def
         }
 
-        const segment = this.segments[quad]
-        if (!segment) return // no segment found
-
-        return segment.get(x, y)
+        //const segment = this.segments[quad]
+        //if (!segment) return // no segment found
+        for (let i = 0; i < this.segments.length; i++) {
+            const segment = this.segments[i]
+            if (segment) {
+                const l = segment.get(x, y)
+                if (l) return l
+            }
+        }
+        return
     }
 
     set(x, y, l) {
@@ -139,10 +155,26 @@ class Segment {
             return this
         }
 
+        //const segment = this.segments[quad]
+        //if (!segment) return // no segment found
+        //return segment.set(x, y, l)
+        for (let i = 0; i < this.segments.length; i++) {
+            const segment = this.segments[i]
+            if (segment) {
+                const s = segment.set(x, y, l)
+                if (s) return s
+            }
+        }
+        return
+    }
+
+    getSegment(x, y) {
+        const quad = this.gquadrant(x, y)
+        if (quad === 0) return this
+
         const segment = this.segments[quad]
         if (!segment) return // no segment found
-
-        return segment.set(x, y, l)
+        return segment.get(x, y)
     }
 
 
