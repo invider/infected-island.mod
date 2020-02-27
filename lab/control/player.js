@@ -1,6 +1,6 @@
 const ON = .000001
 const OFF = 0
-const REPEAT = .4
+const REPEAT = .25
 
 const ctrl = []
 
@@ -33,7 +33,7 @@ function evo(dt) {
                 ctrl[p][a] -= dt
                 if (ctrl[p][a] <= 0) {
                     const hero = lab.world[playerMap[p]]
-                    if (hero) hero.act(a)
+                    if (hero) hero.control.act(a)
                     ctrl[p][a] = REPEAT
                 }
             }

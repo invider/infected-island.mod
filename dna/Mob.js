@@ -29,7 +29,7 @@ class Mob {
         if (podClone.name) this[podClone.name] = podClone
         podClone.__ = this
 
-        if (podClone.init) podClone.init()
+        if (podClone.onInstalled) podClone.onInstalled()
     }
 
     detach(pod) {
@@ -37,7 +37,7 @@ class Mob {
         const i = this.pod.indexOf(pod)
 
         if (i >= 0) {
-            if (pod.done) pod.done()
+            if (pod.onDeinstall) pod.onDeinstall()
             if (podClone.name) delete this[podClone.name]
             this.pod.splice(i, 1)
         }

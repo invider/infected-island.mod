@@ -4,5 +4,5 @@ mod/LICENSE
 mod/README*
 mod/types.js
 
-collider-ext.mix/fix/boot*
+collider-lib.mix/ext.fix/boot*
 

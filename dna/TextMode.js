@@ -1,3 +1,4 @@
+// @depends(env/style)
 const CHAR = 1
 const FACE = 2
 const BACK = 3
@@ -7,14 +8,14 @@ const FX = 5
 const df = {
     name: 'textMode',
     border: 0.05,
-    scale: 3,
+    scale: env.style.scale,
 
-    cellWidth: 9,
-    cellHeight: 10,
-    font: '8px pixel-operator-mono8',
+    font: env.style.font,
+    cellWidth: env.style.cellWidth,
+    cellHeight: env.style.cellHeight,
 
+    // placeholder colors to be replaced by style config
     textColor: '#ffffff',
-    borderColor: '#101010',
     backgroundColor: '#202020',
 }
 
@@ -64,10 +65,9 @@ class TextMode {
         }
 
         augment(this, df)
-        this.palette = env.palette
-        this.borderColor = this.palette.ls[0],
-        this.backgroundColor = this.palette.dir.base,
-        this.textColor = this.palette.dir.text
+        //this.borderColor = pal.ls[0],
+        this.backgroundColor = pal.dir.base,
+        this.textColor = pal.dir.text
         this.setConstants()
 
         augment(this, st) 
@@ -308,7 +308,7 @@ class TextMode {
     draw() {
         save()
 
-        background(this.borderColor)
+        background(pal.ls[0])
         fill(this.backgroundColor)
         rect(this.x, this.y, this.w, this.h)
 
@@ -332,13 +332,13 @@ class TextMode {
                 // background
                 const back = this.buf.back[sh]
                 if (back) {
-                    fill(this.palette.ls[back])
+                    fill(pal.ls[back])
                     rect(tx*cw, ty*ch, cw + 1, ch + 1)
                 }
 
                 // color
                 const face = this.buf.face[sh]
-                fill(this.palette.ls[face] || this.textColor)
+                fill(pal.ls[face] || this.textColor)
 
                 // character
                 if (symbol) {

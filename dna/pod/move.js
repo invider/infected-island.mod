@@ -1,6 +1,6 @@
 const name = 'move'
 
-function init() {}
+function onInstall() {}
 
 function up() {
     const w = this.__._
@@ -38,4 +38,4 @@ function right() {
     }
 }
 
-function done() {}
+function onDeinstall() {}

@@ -1,8 +1,9 @@
 function setup() {
 
+    augment(pal, env.palette)
+
     // set Field of View algorithm
     lib.attach(lib.shaddowFov, 'fov')
-
 
     const world = lab.spawn('World', {})
     const s1 = world.segment
@@ -69,16 +70,7 @@ function setup() {
         y: 2,
         symbol: '@',
 
-        act: function(action) {
-            switch(action) {
-                case 0: this.move.up(); break;
-                case 1: this.move.left(); break;
-                case 2: this.move.down(); break;
-                case 3: this.move.right(); break;
-            }
-        },
-
-        install: [ dna.pod.move ]
+        install: [ dna.pod.move, dna.pod.control ]
     })
 
     lab.control.player.bind(0, 'hero')
