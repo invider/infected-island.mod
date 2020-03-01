@@ -51,9 +51,9 @@ function setup() {
 
     world.hero = world.spawn(dna.Mob, {
         name: 'Nameless Hero',
+        symbol: '@',
         x: 2,
         y: 2,
-        symbol: '@',
 
         install: [ dna.pod.move, dna.pod.control ]
     })
@@ -61,6 +61,20 @@ function setup() {
     lab.control.player.bind(0, 'hero')
     lab.control.player.bind(1, 'hero')
     lab.control.player.bind(2, 'hero')
+
+    world.spawn(dna.Mob, {
+        name: 'Zombie',
+        symbol: 'Z',
+        x: 4,
+        y: 4,
+    })
+
+    world.spawn(dna.Mob, {
+        name: 'Zombie',
+        symbol: 'Z',
+        x: 4,
+        y: 8,
+    })
 
     const tx = lab.spawn('TextMode', {
         //targetWidth: 40,

@@ -41,6 +41,20 @@ class World extends sys.Frame {
         return e
     }
 
+    getMob(x, y) {
+        for (let i = 0; i < this.mob._ls.length; i++) {
+            const mob = this.mob._ls[i]
+            if (mob.x === x && mob.y === y) return mob
+        }
+    }
+
+    getProp(x, y) {
+        for (let i = 0; i < this.prop._ls.length; i++) {
+            const prop = this.prop._ls[i]
+            if (prop.x === x && prop.y === y) return prop
+        }
+    }
+
     get(x, y) {
         return this.segment.get(x, y)
     }
@@ -70,7 +84,13 @@ class World extends sys.Frame {
         }
     }
 
-    free(x, y) {
+    isFree(x, y) {
+        const mob = this.getMob(x, y)
+        if (mob && mob.solid) return false
+
+        const prop = this.getProp(x, y)
+        if (prop && prop.solid) return false
+
         const land = this.segment.get(x, y)
         if (!land) return env.tune.flowInAether
         if (env.tune.solid.includes(land)) return false
