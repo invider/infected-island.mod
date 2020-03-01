@@ -67,6 +67,9 @@ function setup() {
         symbol: 'Z',
         x: 4,
         y: 4,
+        push: function() {
+            this.dead = true
+        }
     })
 
     world.spawn(dna.Mob, {
@@ -74,6 +77,16 @@ function setup() {
         symbol: 'Z',
         x: 4,
         y: 8,
+        push: function() {
+            this.dead = true
+        }
+    })
+
+    world.spawn({
+        name: 'Stuff',
+        symbol: 'h',
+        x: 2,
+        y: 4,
     })
 
     const tx = lab.spawn('TextMode', {

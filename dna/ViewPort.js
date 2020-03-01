@@ -29,12 +29,12 @@ class ViewPort {
         this.h = this.__.th - 2
     }
 
-    printMob(mob) {
-        const lx = mob.x - this.port.x
-        const ly = mob.y - this.port.y
+    printEntity(e) {
+        const lx = e.x - this.port.x
+        const ly = e.y - this.port.y
 
         if (lx >= 0 && lx < this.w && ly >= 0 && ly < this.h) {
-            this.tx.put( this.x + lx, this.y + ly, mob.symbol)
+            this.tx.put( this.x + lx, this.y + ly, e.symbol)
         }
     }
 
@@ -96,9 +96,14 @@ class ViewPort {
             }
         }
 
+        for (let i = 0; i < this.world.prop._ls.length; i++) {
+            const prop = this.world.prop._ls[i]
+            if (prop) this.printEntity(prop)
+        }
+
         for (let i = 0; i < this.world.mob._ls.length; i++) {
             const mob = this.world.mob._ls[i]
-            if (mob && !mob.dead) this.printMob(mob)
+            if (mob && !mob.dead) this.printEntity(mob)
         }
     }
 

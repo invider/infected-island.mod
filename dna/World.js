@@ -31,7 +31,7 @@ class World extends sys.Frame {
     }
 
     spawn(dna, st) {
-        const e = new dna(st)
+        const e = isObj(dna)? dna : new dna(st)
 
         if (e.next) this.mob.attach(e)
         else this.prop.attach(e)
@@ -44,7 +44,9 @@ class World extends sys.Frame {
     getMob(x, y) {
         for (let i = 0; i < this.mob._ls.length; i++) {
             const mob = this.mob._ls[i]
-            if (mob.x === x && mob.y === y) return mob
+            if (mob.x === x
+                && mob.y === y
+                && !mob.dead) return mob
         }
     }
 
@@ -84,17 +86,16 @@ class World extends sys.Frame {
         }
     }
 
-    isFree(x, y) {
+    isSolid(x, y) {
         const mob = this.getMob(x, y)
-        if (mob && mob.solid) return false
+        if (mob && mob.solid) return mob
 
         const prop = this.getProp(x, y)
-        if (prop && prop.solid) return false
+        if (prop && prop.solid) return prop
 
         const land = this.segment.get(x, y)
-        if (!land) return env.tune.flowInAether
-        if (env.tune.solid.includes(land)) return false
-        return true
+        if (!land) return env.tune.solidAether
+        return env.tune.solid.includes(land)
     }
 
     transparent(x, y) {

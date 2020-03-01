@@ -6,8 +6,12 @@ function up() {
     const w = this.__._
     const x = this.__.x
     const y = this.__.y - 1
-    if (w.isFree(x, y)) {
+
+    const obstacle = w.isSolid(x, y)
+    if (!obstacle) {
         this.__.y = y
+    } else if (obstacle.push) {
+        obstacle.push(this.__, 0)
     }
 }
 
@@ -15,8 +19,12 @@ function left() {
     const w = this.__._
     const x = this.__.x - 1
     const y = this.__.y
-    if (w.isFree(x, y)) {
+
+    const obstacle = w.isSolid(x, y)
+    if (!obstacle) {
         this.__.x = x
+    } else if (obstacle.push) {
+        obstacle.push(this.__, 1)
     }
 }
 
@@ -24,8 +32,12 @@ function down() {
     const w = this.__._
     const x = this.__.x
     const y = this.__.y + 1
-    if (w.isFree(x, y)) {
+
+    const obstacle = w.isSolid(x, y)
+    if (!obstacle) {
         this.__.y = y
+    } else if (obstacle.push) {
+        obstacle.push(this.__, 2)
     }
 }
 
@@ -33,8 +45,12 @@ function right() {
     const w = this.__._
     const x = this.__.x + 1
     const y = this.__.y
-    if (w.isFree(x, y)) {
+
+    const obstacle = w.isSolid(x, y)
+    if (!obstacle) {
         this.__.x = x
+    } else if (obstacle.push) {
+        obstacle.push(this.__, 3)
     }
 }
 
