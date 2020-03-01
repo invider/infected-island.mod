@@ -2,6 +2,7 @@ const tune = {
     defaultFOV: 5,
     hideUnexplored: true,
     flowInAether: false,
+    zoomStep: 0.2,
     defaultSegmentWidth: 32,
     defaultSegmentHeight: 32,
     solid: ['#', '|', '-', '+'],

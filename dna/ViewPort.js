@@ -109,14 +109,18 @@ class ViewPort {
             this.port.x = target.x - this.targetEdge
         } else if (target.x + this.targetEdge >=
                     this.port.x + this.w) {
-            this.port.x = target.x - this.w + this.targetEdge
+            if (this.w > this.targetEdge * 2) {
+                this.port.x = target.x - this.w + this.targetEdge
+            }
         }
 
         if (target.y - this.targetEdge < this.port.y) {
             this.port.y = target.y - this.targetEdge
         } else if (target.y + this.targetEdge >=
                     this.port.y + this.h) {
-            this.port.y = target.y - this.h + this.targetEdge
+            if (this.h > this.targetEdge * 2) {
+                this.port.y = target.y - this.h + this.targetEdge
+            }
         }
     }
 

@@ -165,6 +165,16 @@ class TextMode extends sys.LabFrame {
         this.clear()
     }
 
+    zoomIn() {
+        this.scale *= 1 + env.tune.zoomStep
+        this.adjust()
+    }
+
+    zoomOut() {
+        this.scale *= 1 - env.tune.zoomStep
+        this.adjust()
+    }
+
     put(x, y, c, t) {
         if (x >= 0 && x < this.tw && y >= 0 && y < this.th) {
 
