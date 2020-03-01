@@ -1,3 +1,4 @@
+// list of possible text effects
 const fx = [
     {
         set: function(fx, tx, i) {},

@@ -19,8 +19,14 @@ class ViewPort {
     }
 
     init() {
-        this.w = this.tx.tw - 2
-        this.h = this.tx.th - 2
+        this.adjust()
+    }
+
+    adjust() {
+        this.x = 1
+        this.y = 1
+        this.w = this.__.tw - 2
+        this.h = this.__.th - 2
     }
 
     printMob(mob) {
@@ -121,7 +127,7 @@ class ViewPort {
             .back(lib.cidx('baseHi'))
             .face(lib.cidx('alert'))
             .print('' + this.world.hero.x + ':'
-                        + this.world.hero.y)
+                        + this.world.hero.y + '     ')
     }
 
     draw() {

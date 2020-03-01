@@ -33,14 +33,6 @@ function setup() {
     world.place(new AS(), 'north')
     world.place(new AS(), 'south')
 
-    /*
-    world.place(new AS(), 'north', s2)
-    world.place(new AS(), 'south', s2)
-    world.place(new AS(), 'north-east', s2)
-    world.place(new AS(), 'south-east', s2)
-    */
-
-
     world.set(5, 2, '#')
         //.set(5, 3, '#')
         //.set(5, 4, '#')
@@ -55,13 +47,6 @@ function setup() {
 
         .set(3, 6, '-')
         .set(4, 6, '-')
-
-    /*
-        .set(16, 2, '#')
-        .set(16, 3, '#')
-        .set(20, 4, '#')
-        .set(20, 5, '#')
-    */
 
 
     world.hero = world.spawn(dna.Mob, {
@@ -82,7 +67,7 @@ function setup() {
         //targetHeight: 25,
     })
 
-    const viewPort = lab.spawn('ViewPort', {
+    const viewPort = tx.spawn('ViewPort', {
         world: world,
         follow: world.hero,
         tx: tx,

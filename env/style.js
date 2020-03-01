@@ -5,5 +5,5 @@ const style = {
     cellHeight: 10,
 
     aether: '~',
-    unexplored: ' ',
+    unexplored: '?',
 }

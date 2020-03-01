@@ -28,8 +28,8 @@ let label = ''
 const BASE = width() > height()? height() : width()
 const FBASE = BASE * .05
 
-let labelFont = FBASE+'px zekton'
-let lowFont = FBASE*.75 + 'px zekton'
+let labelFont = FBASE+'px moon'
+let lowFont = FBASE*.75 + 'px moon'
 
 const R3 = ry(.4)
 const POWERED_BY = 'Powered by Collider.JAM'

@@ -38,9 +38,10 @@ function copyBuf(src, sw, sh, dw, dh) {
     return dest
 }
 
-class TextMode {
+class TextMode extends sys.LabFrame {
 
     constructor(st) {
+        super()
         this.buf = {
             char: [],
             face: [],
@@ -48,7 +49,7 @@ class TextMode {
             mode: [],
             fx: [],   // effect parameters objects
         }
-        
+
         this.fx = dna.fx
         // make sure all fx methods are present
         const fxBase = this.fx[0]
@@ -83,9 +84,9 @@ class TextMode {
     }
 
     init() {
-        const mode = this
+        const textMode = this
         trap.attach(function resize() {
-            mode.adjust()
+            textMode.adjust()
         })
     }
 
@@ -157,6 +158,11 @@ class TextMode {
         } else {
             this.adjustBySpan()
         }
+
+        for (let i = 0; i < this._ls.length; i++) {
+            this._ls[i].adjust()
+        }
+        this.clear()
     }
 
     put(x, y, c, t) {
@@ -294,6 +300,16 @@ class TextMode {
         return this
     }
 
+    clear() {
+        this.reset()
+        this.at(0, 0)
+        for (let y = 0; y < this.th; y++) {
+            for (let x = 0; x < this.tw; x++) {
+                this.out(' ')
+            }
+        }
+    }
+
     evo(dt) {
         const n = this.tw * this.th
         for (let i = 0; i < n; i++) {
@@ -305,7 +321,13 @@ class TextMode {
         }
     }
 
-    draw() {
+    renderComponents() {
+        for (let i = 0; i < this._ls.length; i++) {
+            this._ls[i].draw()
+        }
+    }
+
+    drawContent() {
         save()
 
         background(pal.ls[0])
@@ -349,5 +371,10 @@ class TextMode {
             }
 
         restore()
+    }
+
+    draw() {
+        this.renderComponents()
+        this.drawContent()
     }
 }
