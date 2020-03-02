@@ -23,10 +23,10 @@ class ViewPort {
     }
 
     adjust() {
-        this.x = 1
+        this.x = 0
         this.y = 1
-        this.w = this.__.tw - 2
-        this.h = this.__.th - 2
+        this.w = this.__.tw
+        this.h = this.__.th - 1
     }
 
     printEntity(e) {
@@ -71,12 +71,15 @@ class ViewPort {
                 const gy = port.y + y
                 const vx = this.x + x
                 const vy = this.y + y
-                const s = this.world.get(gx, gy)
 
                 // determine visibility state
                 const explored = !env.tune.hideUnexplored
                             || this.world.isExplored(gx, gy)
                 const visible = fov.test(gx, gy)
+
+                const s = visible?
+                            this.world.get(gx, gy)
+                            : this.world.getLand(gx, gy)
 
                 if (visible) {
                     this.tx.put(vx, vy, cidx('text'), this.tx.FACE)
@@ -94,16 +97,6 @@ class ViewPort {
                     this.tx.put(vx, vy, env.style.unexplored)
                 }
             }
-        }
-
-        for (let i = 0; i < this.world.prop._ls.length; i++) {
-            const prop = this.world.prop._ls[i]
-            if (prop) this.printEntity(prop)
-        }
-
-        for (let i = 0; i < this.world.mob._ls.length; i++) {
-            const mob = this.world.mob._ls[i]
-            if (mob && !mob.dead) this.printEntity(mob)
         }
     }
 
@@ -130,12 +123,18 @@ class ViewPort {
     }
 
     stat() {
-        this.tx
+        const tx = this.tx
+        tx
             .reset()
-            .at(1, 0)
+            .at(0, 0)
             .back(lib.cidx('baseHi'))
             .face(lib.cidx('alert'))
-            .print('' + this.world.hero.x + ':'
+
+        for (let x = 0; x < this.w; x++) {
+            tx.out(' ')
+        }
+
+        tx.at(1, 0).print('' + this.world.hero.x + ':'
                         + this.world.hero.y + '     ')
     }
 

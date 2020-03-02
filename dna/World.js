@@ -57,7 +57,20 @@ class World extends sys.Frame {
         }
     }
 
+    getEntity(x, y) {
+        const mob = this.getMob(x, y)
+        if (mob) return mob
+        const prop = this.getProp(x, y)
+        if (prop) return prop
+    }
+
     get(x, y) {
+        const e = this.getEntity(x, y)
+        if (e) return e.symbol
+        return this.segment.get(x, y)
+    }
+
+    getLand(x, y) {
         return this.segment.get(x, y)
     }
 

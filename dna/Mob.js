@@ -1,4 +1,3 @@
-
 const dt = {
     symbol: 'M',
     solid: true,
