@@ -128,4 +128,13 @@ class World extends sys.Frame {
         if (env.tune.opaque.includes(land)) return false
         return true
     }
+
+    next() {
+        for (let i = 0; i < this.mob._ls.length; i++) {
+            const mob = this.mob._ls[i]
+            if (mob && !mob.dead) {
+                mob.next()
+            }
+        }
+    }
 }

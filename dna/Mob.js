@@ -27,7 +27,8 @@ class Mob {
 
         const podClone = augment({}, pod)
         this.pod.push(podClone)
-        if (podClone.name) this[podClone.name] = podClone
+        if (podClone.alias) this[podClone.alias] = podClone
+        else if (podClone.name) this[podClone.name] = podClone
         podClone.__ = this
 
         if (podClone.onInstalled) podClone.onInstalled()

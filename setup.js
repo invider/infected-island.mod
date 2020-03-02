@@ -56,7 +56,7 @@ function setup() {
         y: 2,
         items: 0,
 
-        install: [ dna.pod.move, dna.pod.control ],
+        install: [ dna.pod.move, dna.pod.totalControl ],
 
         touch: function(e) {
             if (e.symbol === 'h') {
@@ -75,9 +75,15 @@ function setup() {
         symbol: 'Z',
         x: 4,
         y: 4,
+        install: [ dna.pod.move ],
+
         push: function() {
             this.dead = true
-        }
+        },
+        next: function() {
+            const dir = RND(3)
+            this.move.dir(dir)
+        },
     })
 
     world.spawn(dna.Mob, {
@@ -85,9 +91,16 @@ function setup() {
         symbol: 'Z',
         x: 4,
         y: 8,
+
+        install: [ dna.pod.move ],
+
         push: function() {
             this.dead = true
-        }
+        },
+        next: function() {
+            const dir = RND(3)
+            this.move.dir(dir)
+        },
     })
 
     world.spawn({ symbol: 'h', x: 2, y: 4, })

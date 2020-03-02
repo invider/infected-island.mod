@@ -6,6 +6,7 @@ function onInstall() {
 
 function act(action) {
     this.__.move.dir(action)
+    this.__._.next()
 }
 
 function onDeinstall() {}
