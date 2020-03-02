@@ -53,7 +53,9 @@ class World extends sys.Frame {
     getProp(x, y) {
         for (let i = 0; i < this.prop._ls.length; i++) {
             const prop = this.prop._ls[i]
-            if (prop.x === x && prop.y === y) return prop
+            if (prop.x === x
+                && prop.y === y
+                && !prop.dead) return prop
         }
     }
 
@@ -77,6 +79,15 @@ class World extends sys.Frame {
     set(x, y, l) {
         this.segment.set(x, y, l)
         return this
+    }
+
+    touch(x, y, mob) {
+        if(!mob || !mob.touch) return
+        const e = this.getEntity(x, y)
+        if (e) {
+            mob.touch(e)
+            if (e.hit) e.hit(mob)
+        }
     }
 
     isExplored(x, y) {

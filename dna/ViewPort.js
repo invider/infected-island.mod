@@ -136,6 +136,8 @@ class ViewPort {
 
         tx.at(1, 0).print('' + this.world.hero.x + ':'
                         + this.world.hero.y + '     ')
+
+        tx.at(8, 0).print('collected: ' + this.world.hero.items)
     }
 
     draw() {

@@ -54,8 +54,16 @@ function setup() {
         symbol: '@',
         x: 2,
         y: 2,
+        items: 0,
 
-        install: [ dna.pod.move, dna.pod.control ]
+        install: [ dna.pod.move, dna.pod.control ],
+
+        touch: function(e) {
+            if (e.symbol === 'h') {
+                this.items ++
+                e.dead = true
+            }
+        },
     })
 
     lab.control.player.bind(0, 'hero')
@@ -82,12 +90,12 @@ function setup() {
         }
     })
 
-    world.spawn({
-        name: 'Stuff',
-        symbol: 'h',
-        x: 2,
-        y: 4,
-    })
+    world.spawn({ symbol: 'h', x: 2, y: 4, })
+    world.spawn({ symbol: 'h', x: 10, y: 1, })
+    world.spawn({ symbol: 'h', x: 11, y: 8, })
+    world.spawn({ symbol: 'h', x: 13, y: 6, })
+    world.spawn({ symbol: 'h', x: 6, y: 15, })
+    world.spawn({ symbol: 'h', x: 9, y: 20, })
 
     const tx = lab.spawn('TextMode', {
         //targetWidth: 40,
