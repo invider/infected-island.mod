@@ -6,7 +6,6 @@ function keyDown(e) {
         lab.control.player.act(action.id, action.player)
 
     } else {
-        log(e.code)
         switch(e.code) {
             case 'Minus':
                 lab.textMode.zoomOut()
@@ -16,5 +15,4 @@ function keyDown(e) {
                 break
         }
     }
-
 }
