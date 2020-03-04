@@ -1,4 +1,4 @@
 #!/bin/sh
 
-jam -d --fast
+jam -d --fast $@
 
