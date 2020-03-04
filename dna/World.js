@@ -12,6 +12,9 @@ class World extends sys.Frame {
         this.attach(new sys.Frame({
             name: 'prop',
         }))
+        this.attach(new sys.Frame({
+            name: 'ghost',
+        }))
         //this.mob = []
         //this.prop = []
 
@@ -134,6 +137,13 @@ class World extends sys.Frame {
             const mob = this.mob._ls[i]
             if (mob && !mob.dead) {
                 mob.next()
+            }
+        }
+
+        for (let i = 0; i < this.ghost._ls.length; i++) {
+            const ghost = this.ghost._ls[i]
+            if (ghost && !ghost.dead) {
+                ghost.next()
             }
         }
     }

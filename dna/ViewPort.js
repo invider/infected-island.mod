@@ -82,7 +82,19 @@ class ViewPort {
                             : this.world.getLand(gx, gy)
 
                 if (visible) {
-                    this.tx.put(vx, vy, cidx('text'), this.tx.FACE)
+                    let c = cidx('land')
+                    switch (s) {
+                    case '~': c = cidx('water'); break;
+                    case '_': c = cidx('sand'); break;
+                    case '^': c = cidx('ice'); break;
+                    case '"': c = cidx('forest'); break;
+                    }
+                    if (this.world.infected.isInfected(gx, gy)) {
+                        c = cidx('infected')
+                    }
+
+                    this.tx.put(vx, vy, c, this.tx.FACE)
+
                 } else {
                     this.tx.put(vx, vy, cidx('shaddow'), this.tx.FACE)
                 }
@@ -136,8 +148,6 @@ class ViewPort {
 
         tx.at(1, 0).print('' + this.world.hero.x + ':'
                         + this.world.hero.y + '     ')
-
-        tx.at(8, 0).print('collected: ' + this.world.hero.items)
     }
 
     draw() {

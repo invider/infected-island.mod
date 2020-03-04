@@ -4,7 +4,14 @@ const dir = {
     baseHi: hsl(.45, .2, .2),
     text: hsl(.45, .5, .6),
     'alert': hsl(.1,  .5, .7),
+
     shaddow: '#606062',
+    land: hsl(.45, .5, .6),
+    sand: '#e0bb26',
+    water: '#1d74c4',
+    forest: '#598a48',
+    ice: '#53c9e0',
+    infected: '#eb3434',
 
     dark: '101010',
 }

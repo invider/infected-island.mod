@@ -1,11 +1,87 @@
+function generateTerrain(world) {
+    $.lib.gen.generateIsland({
+        width: env.tune.defaultSegmentWidth,
+        height: env.tune.defaultSegmentHeight,
+
+        dx: 0,
+        dy: 0,
+        z: .2,
+
+        scale: 11,
+        level: {
+            water: .1,
+            sand: .13,
+            stone: .3,
+            ice: .5,
+        },
+        world: world,
+    })
+}
+
+function createWorld() {
+    const world = lab.spawn('World', {})
+    generateTerrain(world)
+    world.attach(new dna.bad.Infected({
+        name: 'infected',
+        world: world,
+        w: world.segment.w,
+        h: world.segment.h,
+    }))
+    world.ghost.link(world.infected)
+
+    let x = 0
+    let y = 0
+    let land
+    while (land !== '.') {
+        land = world.getLand(x++, y++)
+    }
+
+    world.hero = world.spawn(dna.Mob, {
+        name: 'Nameless Hero',
+        symbol: '@',
+        x: x,
+        y: y,
+        items: 0,
+
+        install: [ dna.pod.move, dna.pod.totalControl ],
+
+        touch: function(e) {
+            if (e.symbol === 'h') {
+                this.items ++
+                e.dead = true
+            }
+        },
+    })
+    lab.control.player.bind(0, 'hero')
+    lab.control.player.bind(1, 'hero')
+    lab.control.player.bind(2, 'hero')
+
+    world.infected.source(world.hero.x, world.hero.y)
+
+    return world
+}
+
 function setup() {
-
     augment(pal, env.palette)
-
     // set Field of View algorithm
     lib.attach(lib.shaddowFov, 'fov')
 
-    const world = lab.spawn('World', {})
+    const world = createWorld()
+
+    const tx = lab.spawn('TextMode', {
+        //targetWidth: 40,
+        //targetHeight: 25,
+    })
+
+    const viewPort = tx.spawn('ViewPort', {
+        world: world,
+        follow: world.hero,
+        tx: tx,
+    })
+
+    viewPort.port.x = world.hero.x - floor(viewPort.w/2)
+    viewPort.port.y = world.hero.y - floor(viewPort.h/2)
+    /*
     const s1 = world.segment
     const AS = dna.AetherSegment
 
@@ -48,28 +124,6 @@ function setup() {
         .set(3, 6, '-')
         .set(4, 6, '-')
 
-
-    world.hero = world.spawn(dna.Mob, {
-        name: 'Nameless Hero',
-        symbol: '@',
-        x: 2,
-        y: 2,
-        items: 0,
-
-        install: [ dna.pod.move, dna.pod.totalControl ],
-
-        touch: function(e) {
-            if (e.symbol === 'h') {
-                this.items ++
-                e.dead = true
-            }
-        },
-    })
-
-    lab.control.player.bind(0, 'hero')
-    lab.control.player.bind(1, 'hero')
-    lab.control.player.bind(2, 'hero')
-
     world.spawn(dna.Mob, {
         name: 'Zombie',
         symbol: 'Z',
@@ -109,21 +163,8 @@ function setup() {
     world.spawn({ symbol: 'h', x: 13, y: 6, })
     world.spawn({ symbol: 'h', x: 6, y: 15, })
     world.spawn({ symbol: 'h', x: 9, y: 20, })
+    */
 
-    const tx = lab.spawn('TextMode', {
-        //targetWidth: 40,
-        //targetHeight: 25,
-    })
-
-    const viewPort = tx.spawn('ViewPort', {
-        world: world,
-        follow: world.hero,
-        tx: tx,
-        x: 1,
-        y: 1,
-        w: 12,
-        h: 12,
-    })
     
     /*
     tx.out('o').out('n').out('e')
