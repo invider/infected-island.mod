@@ -1,4 +1,4 @@
-// @depends(dna/Mob)
+// @depends(dna/bad/Person)
 
 const df = {
     symbol: '@',
@@ -7,16 +7,15 @@ const df = {
     food: 0,
 }
 
-class Hero extends dna.Mob {
+class Hero extends dna.bad.Person {
 
     constructor(st) {
-        const preSt = {
-            install: [ dna.pod.move, dna.pod.totalControl ],
-        }
-        super(preSt)
+        super(st)
         augment(this, df)
-        augment(this, st)
+        this.attach(dna.pod.totalControl)
     }
+
+    next() {}
 
     touch(e) {
         if (e.symbol === 'o') {
@@ -24,5 +23,17 @@ class Hero extends dna.Mob {
             e.dead = true
             sfx(res.sfx.selectLow)
         }
+    }
+
+    infect() {
+        super.infect()
+        if (!this.dead) sfx(res.sfx.move)
+    }
+
+    kill() {
+        super.kill()
+        this.detach(this.controller)
+        sfx(res.sfx.mutation)
+        trap('gameover')
     }
 }

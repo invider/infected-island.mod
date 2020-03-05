@@ -89,7 +89,11 @@ class World extends sys.Frame {
         const e = this.getEntity(x, y)
         if (e) {
             mob.touch(e)
-            if (e.hit) e.hit(mob)
+            if (e.touchedBy) e.touchedBy(mob)
+        }
+
+        if (mob.infect && this.infected.isInfected(x, y)) {
+            mob.infect()
         }
     }
 

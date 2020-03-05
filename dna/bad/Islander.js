@@ -1,8 +1,8 @@
-// @depends(dna/Mob)
+// @depends(dna/bad/Person)
 
 let id = 0
 
-class Islander extends dna.Mob {
+class Islander extends dna.bad.Person {
 
     constructor(st) {
         super(st)
