@@ -1,5 +1,7 @@
 const df = {
     name: 'world',
+    timer: 0,
+    scheduled: 0,
 }
 
 class World extends sys.Frame {
@@ -136,6 +138,18 @@ class World extends sys.Frame {
         return true
     }
 
+    evo(dt) {
+        if (this.timer > 0) {
+            this.timer -= dt
+            if (this.timer <= 0) {
+                this.scheduled --
+                if (this.scheduled === 0) this.timer = 0
+                else this.timer = env.tune.turnDelay
+                this.next()
+            }
+        }
+    }
+
     next() {
         for (let i = 0; i < this.mob._ls.length; i++) {
             const mob = this.mob._ls[i]
@@ -150,5 +164,12 @@ class World extends sys.Frame {
                 ghost.next()
             }
         }
+    }
+
+    scheduleNext() {
+        if (this.scheduled === 0) {
+            this.timer = env.tune.turnDelay
+        }
+        this.scheduled ++
     }
 }

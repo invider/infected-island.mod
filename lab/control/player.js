@@ -1,6 +1,5 @@
 const ON = .000001
 const OFF = 0
-const REPEAT = .25
 
 const ctrl = []
 
@@ -34,7 +33,7 @@ function evo(dt) {
                 if (ctrl[p][a] <= 0) {
                     const hero = lab.world[playerMap[p]]
                     if (hero) hero.control.act(a)
-                    ctrl[p][a] = REPEAT
+                    ctrl[p][a] = env.tune.keyRepeat
                 }
             }
         }

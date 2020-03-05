@@ -1,4 +1,6 @@
 const tune = {
+    turnDelay: .5,
+    keyRepeat: .3,
     defaultFOV: 7,
     hideUnexplored: true,
     solidAether: true,
