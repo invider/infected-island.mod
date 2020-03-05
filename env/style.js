@@ -4,6 +4,6 @@ const style = {
     cellWidth: 9,
     cellHeight: 10,
 
-    aether: '~',
+    aether: ' ',
     unexplored: ' ',
 }

@@ -10,9 +10,10 @@ function generateTerrain(world) {
         scale: 11,
         level: {
             water: .1,
-            sand: .13,
-            stone: .3,
-            ice: .5,
+            sand: .14,
+            stone: .2,
+            ice: .3,
+            rocks: .7,
         },
         world: world,
     })
@@ -36,21 +37,10 @@ function createWorld() {
         land = world.getLand(x++, y++)
     }
 
-    world.hero = world.spawn(dna.Mob, {
+    world.hero = world.spawn(dna.bad.Hero, {
         name: 'Nameless Hero',
-        symbol: '@',
         x: x,
         y: y,
-        items: 0,
-
-        install: [ dna.pod.move, dna.pod.totalControl ],
-
-        touch: function(e) {
-            if (e.symbol === 'h') {
-                this.items ++
-                e.dead = true
-            }
-        },
     })
     lab.control.player.bind(0, 'hero')
     lab.control.player.bind(1, 'hero')
@@ -79,8 +69,11 @@ function setup() {
         tx: tx,
     })
 
-    viewPort.port.x = world.hero.x - floor(viewPort.w/2)
-    viewPort.port.y = world.hero.y - floor(viewPort.h/2)
+    const topPanel = tx.spawn(dna.hud.TopPanel, {
+        world: world,
+        tx: tx,
+    })
+
     /*
     const s1 = world.segment
     const AS = dna.AetherSegment

@@ -3,8 +3,8 @@ const tune = {
     hideUnexplored: true,
     solidAether: true,
     zoomStep: 0.2,
-    defaultSegmentWidth: 256,
-    defaultSegmentHeight: 256,
+    defaultSegmentWidth: 128,
+    defaultSegmentHeight: 128,
     solid: ['~', '^', '#', '|', '-'],
     opaque: ['#', '-'],
 }

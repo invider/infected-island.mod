@@ -138,6 +138,7 @@ class ViewPort {
         */
     }
 
+    /*
     stat() {
         const tx = this.tx
         tx
@@ -153,10 +154,10 @@ class ViewPort {
         tx.at(1, 0).print('' + this.world.hero.x + ':'
                         + this.world.hero.y + '     ')
     }
+    */
 
     draw() {
         this.moveOverTarget(this.follow)
         this.print()
-        this.stat()
     }
 }
