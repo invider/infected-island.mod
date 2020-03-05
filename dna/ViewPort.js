@@ -115,6 +115,9 @@ class ViewPort {
     moveOverTarget(target) {
         if (!target) return
 
+        this.port.x = floor(target.x - this.w/2)
+        this.port.y = floor(target.y - this.h/2)
+        /*
         if (target.x - this.targetEdge < this.port.x) {
             this.port.x = target.x - this.targetEdge
         } else if (target.x + this.targetEdge >=
@@ -132,6 +135,7 @@ class ViewPort {
                 this.port.y = target.y - this.h + this.targetEdge
             }
         }
+        */
     }
 
     stat() {
