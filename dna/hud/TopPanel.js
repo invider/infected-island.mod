@@ -5,6 +5,8 @@ class TopPanel {
         augment(this, st)
     }
 
+    adjust() {}
+
     draw() {
         const hero = this.world.hero
         const tx = this.tx
@@ -29,5 +31,15 @@ class TopPanel {
         tx.at(w - 22, 0).print('stones:' + hero.stones)
 
         tx.at(w - 32, 0).print('food:' + hero.food)
+
+        let islanders = 0
+        for (let i = 0; i < this.world.mob._ls.length; i++) {
+            const mob = this.world.mob._ls[i]
+            if (mob instanceof dna.bad.Islander
+                        && !mob.dead) {
+                islanders ++
+            }
+        }
+        tx.at(w - 40, 0).print('pop:' + islanders)
     }
 }

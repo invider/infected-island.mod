@@ -13,7 +13,9 @@ function generateTerrain(world) {
             sand: .14,
             stone: .2,
             ice: .3,
+
             rocks: .7,
+            islanders: .8,
         },
         world: world,
     })
