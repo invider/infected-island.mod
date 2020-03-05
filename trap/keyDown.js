@@ -13,6 +13,10 @@ function keyDown(e) {
             case 'Equal':
                 lab.textMode.zoomIn()
                 break
+
+            case 'KeyT':
+                lab.world.autoevolve = !lab.world.autoevolve
+                break
         }
     }
 }

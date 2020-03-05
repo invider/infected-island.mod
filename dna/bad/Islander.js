@@ -13,7 +13,7 @@ class Islander extends dna.bad.Person {
     }
 
     push(e) {
-        log(this.name + ' is pushed by ' + e.name)
+        //log(this.name + ' is pushed by ' + e.name)
     }
 
     next() {

@@ -2,6 +2,7 @@ const df = {
     name: 'world',
     timer: 0,
     scheduled: 0,
+    autoevolve: false,
 }
 
 class World extends sys.Frame {
@@ -139,13 +140,19 @@ class World extends sys.Frame {
     }
 
     evo(dt) {
-        if (this.timer > 0) {
+        if (this.scheduled > 0) {
             this.timer -= dt
             if (this.timer <= 0) {
                 this.scheduled --
                 if (this.scheduled === 0) this.timer = 0
                 else this.timer = env.tune.turnDelay
                 this.next()
+            }
+        } else if (this.autoevolve) {
+            this.timer -= dt
+            if (this.timer <= 0) {
+                this.next()
+                this.timer = env.tune.turnTime
             }
         }
     }
