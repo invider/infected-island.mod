@@ -22,11 +22,16 @@ function grab(type) {
 function drop(type) {
     if (!this.item[type]) return false
 
+    const mob = this.__
+    const world = mob._
+    if (world.getProp(mob.x, mob.y)) return false
+
     this.item[type] --
     if (this.item[type] === 0) {
         delete this.item[type]
         this.itemCount --
     }
+    sfx(res.sfx.selectLow)
     return true
 }
 

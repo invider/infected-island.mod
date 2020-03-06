@@ -53,13 +53,16 @@ class SidePanel extends dna.hud.Panel {
         let x= this.x + 1
         let y = this.y + 1
 
+        tx.at(x, y).print('==|status|==')
+        y ++
         tx.at(x, y).print('health:' + hero.health)
         y ++
-        tx.at(x, y).print('followers:' + env.status.followers)
+        tx.at(x, y).print('fans:' + env.status.followers
+            + '(' + env.status.population + ')')
         y += 2
 
         tx.at(x, y).print('==|items|==')
-        y++
+        y ++
 
         Object.keys(hero.pack.item).forEach(item => {
             const qty = hero.pack.item[item]
@@ -75,7 +78,7 @@ class SidePanel extends dna.hud.Panel {
                       .face(lib.cidx('alert'))
                 }
                 tx.at(x, y).print(label)
-                y++
+                y ++
             }
         })
     }
