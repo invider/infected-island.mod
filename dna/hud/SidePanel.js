@@ -61,6 +61,14 @@ class SidePanel extends dna.hud.Panel {
 
             if (qty > 0) {
                 const label = item + ':' + qty
+                const selected = hero.pack.isSelected(item)
+                if (selected) {
+                    tx.back(lib.cidx('alert'))
+                      .face(lib.cidx('baseLow'))
+                } else {
+                    tx.back(lib.cidx('baseLow'))
+                      .face(lib.cidx('alert'))
+                }
                 tx.at(x, y).print(label)
                 y++
             }

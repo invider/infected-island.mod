@@ -5,7 +5,18 @@ function onInstall() {
 }
 
 function act(action) {
-    this.__.move.dir(action)
+    const hero = this.__
+
+    if (action < 4) {
+        hero.move.dir(action)
+        return true
+    }
+
+    switch(action) {
+        case 4: hero.pack.selectNext(); break;
+        case 5: hero.pack.selectPrev(); break;
+        case 6: hero.pack.use(); break;
+    }
 }
 
 function onDeinstall() {}

@@ -1,16 +1,18 @@
 // just like control
 // but also schedules the world next()
 
-const alias = 'control'
+// @depends(dna/pod/control)
+const control = dna.pod.control
 
-function onInstall() {
-    if (!this.__.move) throw `move pod must be present to control ${this.__.name}`
+const totalControl = augment({}, control)
+
+totalControl.alias = 'control'
+
+totalControl.react = totalControl.act
+
+totalControl.act = function act(action) {
+    if (this.react(action)) {
+        this.__._.scheduleNext()
+        this.__._.onMovement()
+    }
 }
-
-function act(action) {
-    this.__.move.dir(action)
-    this.__._.scheduleNext()
-    this.__._.onMovement()
-}
-
-function onDeinstall() {}
