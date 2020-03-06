@@ -108,6 +108,11 @@ class ViewPort {
                 } else {
                     this.tx.put(vx, vy, env.style.unexplored)
                 }
+
+                const intent = this.world.intent.get(gx, gy)
+                if (intent && s !== '@') {
+                    this.tx.put(vx, vy, intent)
+                }
             }
         }
     }

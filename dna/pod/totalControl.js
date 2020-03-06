@@ -1,3 +1,6 @@
+// just like control
+// but also schedules the world next()
+
 const alias = 'control'
 
 function onInstall() {
@@ -7,6 +10,7 @@ function onInstall() {
 function act(action) {
     this.__.move.dir(action)
     this.__._.scheduleNext()
+    this.__._.onMovement()
 }
 
 function onDeinstall() {}

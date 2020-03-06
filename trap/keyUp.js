@@ -1,4 +1,6 @@
 function keyUp(e) {
     const action = env.bind.keyMap[e.code]
-    if (action) lab.control.player.stop(action.id, action.player)
+    if (action && !e.metaKey && !e.altKey && !e.ctrlKey) {
+        lab.control.player.stop(action.id, action.player)
+    }
 }

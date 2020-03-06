@@ -132,6 +132,12 @@ class World extends sys.Frame {
         return env.tune.solid.includes(land)
     }
 
+    isWalkable(x, y) {
+        const land = this.segment.get(x, y)
+        if (!land) return !env.tune.solidAether
+        return !env.tune.solid.includes(land)
+    }
+
     transparent(x, y) {
         const land = this.segment.get(x, y)
         if (!land) return true
@@ -171,6 +177,12 @@ class World extends sys.Frame {
                 ghost.next()
             }
         }
+
+        this.onMovement()
+    }
+
+    onMovement() {
+        this.intent.recalc()
     }
 
     scheduleNext() {

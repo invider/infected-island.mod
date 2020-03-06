@@ -25,12 +25,17 @@ function createWorld() {
     const world = lab.spawn('World', {})
     generateTerrain(world)
     world.attach(new dna.bad.Infected({
-        name: 'infected',
         world: world,
         w: world.segment.w,
         h: world.segment.h,
     }))
     world.ghost.link(world.infected)
+
+    world.attach(new dna.bad.Intent({
+        world: world,
+        w: world.segment.w,
+        h: world.segment.h,
+    }))
 
     let x = 0
     let y = 0

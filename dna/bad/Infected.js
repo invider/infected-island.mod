@@ -1,15 +1,10 @@
 class Infected {
 
     constructor(st) {
+        this.name = 'infected'
         this.map = []
         this.sources = []
         augment(this, st)
-
-        /*
-        for (let i = 0; i < 10000; i++) {
-            this.next()
-        }
-        */
     }
 
     infect(x, y) {
