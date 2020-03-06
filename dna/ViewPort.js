@@ -132,7 +132,7 @@ class ViewPort {
                 }
 
                 /*
-                const intent = this.world.intent.get(gx, gy)
+                const intent = this.world.intent.get(1, gx, gy)
                 if (intent && s !== '@') {
                     this.tx.put(vx, vy, intent)
                 }
