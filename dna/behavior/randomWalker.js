@@ -11,3 +11,9 @@ function activate() {
 function behave() {
     this.move.dir(RND(3))
 }
+
+function onDeinstall() {
+    if (this.__.behave === this.behave) {
+        this.__.behave = false 
+    }
+}

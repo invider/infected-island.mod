@@ -12,7 +12,6 @@ class Rabbit extends dna.bad.LifeForm {
         this.health = 20
         this.food = 0
         this.sperm = 0
-        this.attach(dna.pod.move)
     }
 
     land(l) {

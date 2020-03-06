@@ -12,24 +12,9 @@ class Hero extends dna.bad.Person {
     constructor(st) {
         super(st)
         augment(this, df)
+        this.detach(this.randomWalker)
         this.attach(dna.pod.totalControl)
-    }
-
-    next() {}
-
-    touch(e) {
-        if (e.symbol === 'o') {
-            this.stones ++
-            e.dead = true
-            sfx(res.sfx.selectLow)
-        }
-    }
-
-    push(e) {
-        if (e instanceof dna.bad.Rabbit) {
-            e.kill()
-            this.food ++
-        }
+        this.attach(dna.pod.bigPack)
     }
 
     infect() {

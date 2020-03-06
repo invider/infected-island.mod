@@ -40,7 +40,8 @@ class Mob {
 
         if (i >= 0) {
             if (pod.onDeinstall) pod.onDeinstall()
-            if (podClone.name) delete this[podClone.name]
+            if (pod.alias) delete this[pod.alias]
+            else if (pod.name) delete this[pod.name]
             this.pod.splice(i, 1)
         }
     }

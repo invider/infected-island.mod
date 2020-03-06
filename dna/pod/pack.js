@@ -22,7 +22,7 @@ function drop(type) {
 }
 
 function freeSpace() {
-    return (capacity - Object.values(this.item).reduce((a, b) => a + b, 0))
+    return (this.capacity - Object.values(this.item).reduce((a, b) => a + b, 0))
 }
 
 function onDeinstall() {}

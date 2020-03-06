@@ -27,7 +27,7 @@ class TopPanel extends dna.hud.Panel {
         }
 
         let turn = 'turn:' + world.turn
-        if (world.scheduled) turn += '/' + world.scheduled
+        if (world.scheduled) turn += '<' + world.scheduled
         tx.at(w - 12, 0).print(turn)
         
         /*
