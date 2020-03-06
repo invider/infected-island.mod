@@ -70,14 +70,21 @@ function setup() {
         //targetHeight: 25,
     })
 
+    const topPanel = tx.spawn(dna.hud.TopPanel, {
+        world: world,
+    })
+
+    const statusBar = tx.spawn(dna.hud.StatusBar, {
+        world: world,
+    })
+
+    const sidePanel = tx.spawn(dna.hud.SidePanel, {
+        world: world,
+    })
+
     const viewPort = tx.spawn('ViewPort', {
         world: world,
         follow: world.hero,
-        tx: tx,
-    })
-
-    const topPanel = tx.spawn(dna.hud.TopPanel, {
-        world: world,
         tx: tx,
     })
 

@@ -17,6 +17,13 @@ function keyDown(e) {
             case 'KeyT':
                 lab.world.autoevolve = !lab.world.autoevolve
                 break
+            case 'KeyP':
+                if (lab.textMode.sidePanel.hidden) {
+                    lab.textMode.sidePanel.show()
+                } else {
+                    lab.textMode.sidePanel.hide()
+                }
+                break
         }
     }
 }

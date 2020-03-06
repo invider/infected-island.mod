@@ -2,6 +2,7 @@
 const dir = {
     base: hsl(.45, .1, .1),
     baseHi: hsl(.45, .2, .2),
+    baseLow: hsl(.45, .15, .15),
     text: hsl(.45, .5, .6),
     'alert': hsl(.1,  .5, .7),
 

@@ -1,15 +1,17 @@
+// @depends(dna/hud/Panel)
 
-class TopPanel {
+class TopPanel extends dna.hud.Panel {
 
     constructor(st) {
-        augment(this, st)
+        super(st)
+        this.name = 'topPanel'
     }
 
     adjust() {}
 
     draw() {
         const hero = this.world.hero
-        const tx = this.tx
+        const tx = this.__
         const w = tx.tw
 
         // fill the top bar

@@ -23,10 +23,28 @@ class ViewPort {
     }
 
     adjust() {
+        const tx = this.__
+        let deltaWidth = 0
+        let deltaHeight = 0
+
         this.x = 0
-        this.y = 1
-        this.w = this.__.tw
-        this.h = this.__.th - 1
+        if (tx.topPanel.hidden) {
+            this.y = 0
+        } else {
+            this.y = 1
+            deltaHeight --
+        }
+
+        if (!tx.statusBar.hidden) {
+            deltaHeight --
+        }
+        this.h = tx.th + deltaHeight
+
+        if (tx.sidePanel.hidden) {
+            this.w = tx.tw
+        } else {
+            this.w = tx.tw - tx.sidePanel.w
+        }
     }
 
     printEntity(e) {
@@ -63,7 +81,7 @@ class ViewPort {
         const fov = this.calculateFoV(this.world.hero)
         this.world.exploreFOV(fov)
 
-        tx.reset()
+        //tx.reset()
 
         for (let y = 0; y < this.h; y++) {
             for (let x = 0; x < this.w; x++) {
@@ -80,6 +98,8 @@ class ViewPort {
                 const s = visible?
                             this.world.get(gx, gy)
                             : this.world.getLand(gx, gy)
+
+                this.tx.put(vx, vy, 0, this.tx.BACK)
 
                 if (visible) {
                     let c = cidx('land')

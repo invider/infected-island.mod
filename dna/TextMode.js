@@ -387,4 +387,8 @@ class TextMode extends sys.LabFrame {
         this.renderComponents()
         this.drawContent()
     }
+
+    onAttached(e) {
+        log('attached ' + e.name)
+    }
 }
