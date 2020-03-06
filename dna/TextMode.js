@@ -365,7 +365,7 @@ class TextMode extends sys.LabFrame {
                 const back = this.buf.back[sh]
                 if (back) {
                     fill(pal.ls[back])
-                    rect(tx*cw, ty*ch, cw + 1, ch + 1)
+                    rect(tx*cw, ty*ch, cw + .5, ch + .5)
                 }
 
                 // color
