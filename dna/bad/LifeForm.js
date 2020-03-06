@@ -8,6 +8,7 @@ class LifeForm extends dna.Mob {
         super(st)
         this.symbol = 'f'
         this.health = 10
+        this.maxHealth = 10
         this.attach(dna.pod.move)
         this.attach(dna.behavior.randomWalker)
     }
