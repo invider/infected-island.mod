@@ -14,7 +14,7 @@ class Hero extends dna.bad.Person {
         augment(this, df)
         this.detach(this.randomWalker)
         this.attach(dna.pod.totalControl)
-        this.attach(dna.pod.bigPack)
+        this.attach(dna.pod.heroPack)
     }
 
     infect() {

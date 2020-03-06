@@ -49,5 +49,21 @@ class SidePanel extends dna.hud.Panel {
                     .out(' ')
             }
         }
+
+        let x= this.x + 1
+        let y = this.y + 1
+
+        tx.at(x, y).print('==|items|==')
+        y++
+
+        Object.keys(hero.pack.item).forEach(item => {
+            const qty = hero.pack.item[item]
+
+            if (qty > 0) {
+                const label = item + ':' + qty
+                tx.at(x, y).print(label)
+                y++
+            }
+        })
     }
 }

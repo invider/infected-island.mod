@@ -4,7 +4,7 @@ const style = {
     cellWidth: 9,
     cellHeight: 10,
 
-    sidePanelWidth: 16,
+    sidePanelWidth: 13,
 
     aether: ' ',
     unexplored: ' ',
