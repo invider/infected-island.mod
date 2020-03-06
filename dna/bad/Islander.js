@@ -13,10 +13,15 @@ class Islander extends dna.bad.Person {
 
     touch(e) {
         super.touch(e)
-        if (e.symbol === '*') this.follower = true
+        if (e.symbol === '*') this.follow()
     }
 
     push(e) {
         //log(this.name + ' is pushed by ' + e.name)
+    }
+
+    follow() {
+        this.follower = true
+        this.attach(dna.behavior.follower)
     }
 }

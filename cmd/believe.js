@@ -3,7 +3,7 @@ function believe() {
     let turnedIn = 0
     lab.world.mob._ls.forEach(mob => {
         if (mob instanceof dna.bad.Islander && !mob.follower) {
-            mob.follower = true
+            mob.follow()
             turnedIn ++
         }
     })
@@ -11,4 +11,3 @@ function believe() {
 }
 
 believe.info = 'turn all islanders into followers'
-

@@ -57,12 +57,18 @@ class ViewPort {
     }
 
     calculateFoV(observer) {
+        if (!env.tune.fogOfWar) {
+            return {
+                test: () => true,
+            }
+        }
+
         const world = this.world
 
         return lib.fov({
                 x: observer.x,
                 y: observer.y,
-                r: observer.fovRadius || env.tune.defaultFOV,
+                r: observer.fovRadius || env.tune.defaultFoV,
             },
             (lx, ly) => {
                 // transparency test for FoV algorithm
@@ -132,8 +138,11 @@ class ViewPort {
                 }
 
                 /*
-                const intent = this.world.intent.get(1, gx, gy)
-                if (intent && s !== '@') {
+                const intent = this.world.intent.get(0, gx, gy)
+                if (intent
+                        && s !== '@'
+                        && s !== '%'
+                        && s !== 'r') {
                     this.tx.put(vx, vy, intent)
                 }
                 */

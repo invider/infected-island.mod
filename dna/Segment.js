@@ -56,6 +56,8 @@ class Segment {
     }
 
     isExplored(x, y) {
+        if (!env.tune.hideUnexplored) return true
+
         if (this.ginside(x, y)) {
             // found the point within
             return !!this.explored[ (y-this.y) * this.w + (x-this.x) ]

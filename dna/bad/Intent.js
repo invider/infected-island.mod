@@ -17,6 +17,38 @@ class Intent {
         return this.map[ l * this.ln + (y*this.w + x) ]
     }
 
+    getm(l, x, y) {
+        const v = this.get(l, x, y)
+        if (!v || v < 0) return 999
+        return v
+    }
+
+    min(l, x, y) {
+        const center = this.getm(l, x, y)
+        const up = this.getm(l, x, y - 1)
+        const left = this.getm(l, x - 1, y)
+        const down = this.getm(l, x, y + 1)
+        const right = this.getm(l, x + 1, y)
+
+        if (up < center && up <= left
+                && up <= down && up <= right) {
+            return 0
+        }
+        if (left < center && left <= up
+                && left <= down && left <= right) {
+            return 1
+        }
+        if (down < center && down <= up
+                && down <= left && down <= right) {
+            return 2
+        }
+        if (right < center && right <= up
+                && right <= left && right <= down) {
+            return 3
+        }
+        return -1
+    }
+
     set(l, x, y, val) {
         if (x < 0 || x >= this.w || y < 0 || y >= this.h) return
         this.map[ l * this.ln + (y*this.w + x) ] = val
@@ -81,8 +113,8 @@ class Intent {
         }
 
         this.clear()
-        fromSource(0, hero.x, hero.y, 5)
-        toSource(1, hero.x, hero.y, 5)
+        fromSource(0, hero.x, hero.y, 10)
+        //toSource(1, hero.x, hero.y, 5)
     }
 
     clear() {
