@@ -94,6 +94,7 @@ class ViewPort {
                 const explored = !env.tune.hideUnexplored
                             || this.world.isExplored(gx, gy)
                 const visible = fov.test(gx, gy)
+                const infected = this.world.infected.isInfected(gx, gy)
 
                 const s = visible?
                             this.world.get(gx, gy)
@@ -109,7 +110,8 @@ class ViewPort {
                     case '^': c = cidx('ice'); break;
                     case '"': c = cidx('forest'); break;
                     }
-                    if (this.world.infected.isInfected(gx, gy)) {
+
+                    if (infected) {
                         c = cidx('infected')
                     }
 
@@ -129,10 +131,12 @@ class ViewPort {
                     this.tx.put(vx, vy, env.style.unexplored)
                 }
 
+                /*
                 const intent = this.world.intent.get(gx, gy)
                 if (intent && s !== '@') {
                     this.tx.put(vx, vy, intent)
                 }
+                */
             }
         }
     }

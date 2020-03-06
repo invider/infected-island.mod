@@ -10,4 +10,9 @@ const tune = {
     defaultSegmentHeight:   128,
     solid:  ['~', '^', '#', '|', '-'],
     opaque: ['#', '-'],
+
+    infection: {
+        minLife: 11,
+        maxLife: 47, 
+    }
 }

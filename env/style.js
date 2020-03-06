@@ -8,4 +8,5 @@ const style = {
 
     aether: ' ',
     unexplored: ' ',
+    infectionSource: '!',
 }
