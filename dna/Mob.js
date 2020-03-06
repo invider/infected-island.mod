@@ -31,7 +31,7 @@ class Mob {
         else if (podClone.name) this[podClone.name] = podClone
         podClone.__ = this
 
-        if (podClone.onInstalled) podClone.onInstalled()
+        if (podClone.onInstall) podClone.onInstall()
     }
 
     detach(pod) {

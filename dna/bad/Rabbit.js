@@ -1,8 +1,8 @@
-// @depends(dna/bad/Person)
+// @depends(dna/bad/LifeForm)
 
 let id = 0
 
-class Rabbit extends dna.bad.Person {
+class Rabbit extends dna.bad.LifeForm {
 
     constructor(st) {
         super(st)
@@ -45,10 +45,5 @@ class Rabbit extends dna.bad.Person {
                 }))
             }
         }
-    }
-
-    next() {
-        // jump random
-        this.move.dir(RND(3))
     }
 }

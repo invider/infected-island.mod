@@ -9,15 +9,10 @@ class Islander extends dna.bad.Person {
 
         this.name = 'Islander ' + (++id)
         this.symbol = '%'
-        this.attach(dna.pod.move)
+        this.attach(dna.pod.pack)
     }
 
     push(e) {
         //log(this.name + ' is pushed by ' + e.name)
-    }
-
-    next() {
-        const dir = RND(3)
-        this.move.dir(dir)
     }
 }
