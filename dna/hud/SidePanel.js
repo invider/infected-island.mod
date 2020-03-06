@@ -53,6 +53,11 @@ class SidePanel extends dna.hud.Panel {
         let x= this.x + 1
         let y = this.y + 1
 
+        tx.at(x, y).print('health:' + hero.health)
+        y ++
+        tx.at(x, y).print('followers:' + env.status.followers)
+        y += 2
+
         tx.at(x, y).print('==|items|==')
         y++
 

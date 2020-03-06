@@ -54,6 +54,11 @@ function createWorld() {
     lab.control.player.bind(1, 'hero')
     lab.control.player.bind(2, 'hero')
 
+    world.hero.pack.grab('food')
+    world.hero.pack.grab('food')
+    world.hero.pack.grab('food')
+    world.hero.pack.grab('food')
+
     world.infected.source(world.hero.x, world.hero.y)
 
     return world

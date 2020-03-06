@@ -5,6 +5,8 @@ class Person extends dna.bad.LifeForm {
     constructor(st) {
         super(st)
         this.symbol = '%'
+        this.health = 100
+        this.maxHealth = 100
         this.attach(dna.pod.pack)
     }
 
@@ -15,6 +17,8 @@ class Person extends dna.bad.LifeForm {
                 e.dead = true
                 sfx(res.sfx.selectLow)
             }
+        } else if (e.symbol === '*') {
+            this.eat()
         }
     }
 
@@ -27,4 +31,8 @@ class Person extends dna.bad.LifeForm {
         }
     }
 
+    eat() {
+        this.health = min(this.health + env.tune.healthForFood,
+            this.maxHealth)
+    }
 }

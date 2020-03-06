@@ -16,6 +16,9 @@ const tune = {
         maxLife: 47, 
     },
 
-    rabbitProcreateFood: 15, // how much rabbit have to eat
-                             // before it's ready to procreate
+    // how much rabbit have to eat
+    // before it's ready to procreate
+    rabbitProcreateFood: 15,
+
+    healthForFood: 25,
 }

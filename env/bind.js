@@ -5,7 +5,7 @@ const keyboard = [
     [ 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
         'PageDown', 'PageUp', 'ShiftRight' ],
     [ 'KeyK', 'KeyH', 'KeyJ', 'KeyL',
-        'BrackerRight', 'BrackerLeft', 'Enter' ],
+        'BracketRight', 'BracketLeft', 'Enter' ],
 ]
 
 const keyMap = {}
