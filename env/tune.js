@@ -14,5 +14,7 @@ const tune = {
     infection: {
         minLife: 11,
         maxLife: 47, 
-    }
+    },
+
+    rabbitProcreateFood: 5,
 }

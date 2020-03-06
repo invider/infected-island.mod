@@ -25,6 +25,13 @@ class Hero extends dna.bad.Person {
         }
     }
 
+    push(e) {
+        if (e instanceof dna.bad.Rabbit) {
+            e.kill()
+            this.food ++
+        }
+    }
+
     infect() {
         super.infect()
         if (!this.dead) sfx(res.sfx.move)

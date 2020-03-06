@@ -16,6 +16,7 @@ function generateTerrain(world) {
 
             rocks: .7,
             islanders: .8,
+            rabbits: .76,
         },
         world: world,
     })

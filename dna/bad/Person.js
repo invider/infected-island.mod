@@ -11,7 +11,7 @@ class Person extends dna.Mob {
     }
 
     push(e) {
-        log(this.name + ' is pushed by ' + e.name)
+        log(e.name + ' is pushed by ' + this.name)
     }
 
     next() {

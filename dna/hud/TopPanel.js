@@ -35,13 +35,19 @@ class TopPanel extends dna.hud.Panel {
         tx.at(w - 32, 0).print('food:' + hero.food)
 
         let islanders = 0
+        let rabbits = 0
         for (let i = 0; i < this.world.mob._ls.length; i++) {
             const mob = this.world.mob._ls[i]
-            if (mob instanceof dna.bad.Islander
-                        && !mob.dead) {
-                islanders ++
+            if (!mob.dead) {
+                if (mob instanceof dna.bad.Islander) {
+                    islanders ++
+                }
+                if (mob instanceof dna.bad.Rabbit) {
+                    rabbits ++
+                }
             }
         }
-        tx.at(w - 40, 0).print('pop:' + islanders)
+        tx.at(w - 40, 0).print('p:' + islanders
+            + '/' + rabbits)
     }
 }
