@@ -22,8 +22,9 @@ function up() {
         this.__.y = y
         return true
 
-    } else if (obstacle.push) {
-        obstacle.push(this.__, 0)
+    } else {
+        if (this.__.push) this.__.push(obstacle, 0)
+        if (obstacle.pushedBy) obstacle.pushedBy(this.__, 0)
     }
 }
 
@@ -38,8 +39,9 @@ function left() {
         this.__.x = x
         return true
 
-    } else if (obstacle.push) {
-        obstacle.push(this.__, 1)
+    } else {
+        if (this.__.push) this.__.push(obstacle, 1)
+        if (obstacle.pushedBy) obstacle.pushedBy(this.__, 1)
     }
 }
 
@@ -54,8 +56,9 @@ function down() {
         this.__.y = y
         return true
 
-    } else if (obstacle.push) {
-        obstacle.push(this.__, 2)
+    } else {
+        if (this.__.push) this.__.push(obstacle, 2)
+        if (obstacle.pushedBy) obstacle.pushedBy(this.__, 2)
     }
 }
 
@@ -70,8 +73,9 @@ function right() {
         this.__.x = x
         return true
 
-    } else if (obstacle.push) {
-        obstacle.push(this.__, 3)
+    } else {
+        if (this.__.push) this.__.push(obstacle, 3)
+        if (obstacle.pushedBy) obstacle.pushedBy(this.__, 3)
     }
 }
 
