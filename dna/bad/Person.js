@@ -1,35 +1,11 @@
-// @depends(dna/Mob)
+// @depends(dna/bad/LifeForm)
 
-let id = 0
-
-class Person extends dna.Mob {
+class Person extends dna.bad.LifeForm {
 
     constructor(st) {
         super(st)
         this.symbol = '%'
-        this.attach(dna.pod.move)
+        this.attach(dna.pod.pack)
     }
 
-    push(e) {
-        log(e.name + ' is pushed by ' + this.name)
-    }
-
-    next() {
-        const dir = RND(3)
-        this.move.dir(dir)
-    }
-
-    infect() {
-        this.health --
-        sfx(res.sfx.move)
-
-        if (this.health <= 0) {
-            this.kill()
-        }
-    }
-
-    kill() {
-        this.dead = true
-        log(`${this.name} has died!`)
-    }
 }
