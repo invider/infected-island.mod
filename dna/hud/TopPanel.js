@@ -10,7 +10,8 @@ class TopPanel extends dna.hud.Panel {
     adjust() {}
 
     draw() {
-        const hero = this.world.hero
+        const world = this.world
+        const hero = world.hero
         const tx = this.__
         const w = tx.tw
 
@@ -25,14 +26,18 @@ class TopPanel extends dna.hud.Panel {
             tx.out(' ')
         }
 
+        let turn = 'turn:' + world.turn
+        if (world.scheduled) turn += '/' + world.scheduled
+        tx.at(w - 12, 0).print(turn)
+        
+        /*
         tx.at(1, 0).print('' + this.world.hero.x + ':'
                         + this.world.hero.y + '     ')
 
         tx.at(w - 11, 0).print('health:' + hero.health)
-
         tx.at(w - 22, 0).print('stones:' + hero.stones)
-
         tx.at(w - 32, 0).print('food:' + hero.food)
+        */
 
         let islanders = 0
         let rabbits = 0

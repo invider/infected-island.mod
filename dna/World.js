@@ -1,5 +1,6 @@
 const df = {
     name: 'world',
+    turn: 0,
     timer: 0,
     scheduled: 0,
     autoevolve: false,
@@ -174,6 +175,7 @@ class World extends sys.Frame {
     }
 
     next() {
+        this.turn ++
         for (let i = 0; i < this.mob._ls.length; i++) {
             const mob = this.mob._ls[i]
             if (mob && !mob.dead) {
@@ -187,7 +189,6 @@ class World extends sys.Frame {
                 ghost.next()
             }
         }
-
         this.onMovement()
     }
 
