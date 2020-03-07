@@ -210,4 +210,14 @@ class ViewPort {
 
         return this.world.getEntity(gx, gy)
     }
+
+    show() {
+        this.hidden = false
+        lib.util.bindAllPlayers()
+    }
+
+    hide() {
+        this.hidden = true
+        lib.util.unbindAllPlayers()
+    }
 }

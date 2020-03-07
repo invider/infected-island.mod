@@ -1,8 +1,11 @@
 class Panel {
 
-    constructor(st) {
+    constructor(st, df) {
+        augment(this, df)
         augment(this, st)
     }
+
+    adjust() {}
 
     hide() {
         this.hidden = true

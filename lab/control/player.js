@@ -5,8 +5,8 @@ const ctrl = []
 
 const playerMap = []
 
-function bind(player, name) {
-    playerMap[player] = name
+function bind(player, target) {
+    playerMap[player] = target
     if (!ctrl[player]) ctrl[player] = []
 }
 
@@ -14,6 +14,11 @@ function act(action, player) {
     if (!player) player = 0
     if (ctrl[player] && !ctrl[player][action]) {
         ctrl[player][action] = ON
+
+        const hero = playerMap[player]
+        if (hero && hero.control.activate) {
+            hero.control.activate(action)
+        }
     }
 }
 
@@ -31,7 +36,7 @@ function evo(dt) {
             if (ctrl[p][a]) {
                 ctrl[p][a] -= dt
                 if (ctrl[p][a] <= 0) {
-                    const hero = lab.world[playerMap[p]]
+                    const hero = playerMap[p]
                     if (hero) hero.control.act(a)
                     ctrl[p][a] = env.tune.keyRepeat
                 }
@@ -49,8 +54,4 @@ function evo(dt) {
         }
     }
     */
-}
-
-function unbind(player) {
-    playerMap[player] = false
 }

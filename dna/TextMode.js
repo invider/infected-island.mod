@@ -333,7 +333,8 @@ class TextMode extends sys.LabFrame {
 
     renderComponents() {
         for (let i = 0; i < this._ls.length; i++) {
-            this._ls[i].draw()
+            const component = this._ls[i]
+            if (!component.hidden) component.draw()
         }
     }
 
