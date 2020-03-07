@@ -16,8 +16,8 @@ class Menu extends dna.hud.Panel {
                 switch(action) {
                     case 0: this.__.selectPrev(); break;
                     case 2: this.__.selectNext(); break;
-                    case 1: this.__.selectFirst(); break;
-                    case 3: this.__.selectLast(); break;
+                    case 1: this.__.actionPrev(); break;
+                    case 3: this.__.actionNext(); break;
                     case 6: this.__.action(); break;
                 }
             }
@@ -66,7 +66,17 @@ class Menu extends dna.hud.Panel {
 
     action() {
         const item = this.items[this.selected]
-        item.action(this)
+        if (item && item.action) item.action(this)
+    }
+
+    actionNext() {
+        const item = this.items[this.selected]
+        if (item && item.actionNext) item.actionNext(this)
+    }
+
+    actionPrev() {
+        const item = this.items[this.selected]
+        if (item && item.actionPrev) item.actionPrev(this)
     }
 
     bind() {
