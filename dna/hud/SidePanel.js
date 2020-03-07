@@ -34,7 +34,6 @@ class SidePanel extends dna.hud.Panel {
     draw() {
         const hero = this.world.hero
         const tx = this.__
-        const w = tx.tw
 
         // fill the top bar
         tx
@@ -53,16 +52,13 @@ class SidePanel extends dna.hud.Panel {
         let x= this.x + 1
         let y = this.y + 1
 
-        tx.at(x, y).print('==|status|==')
-        y ++
-        tx.at(x, y).print('health:' + hero.health)
-        y ++
+        tx.at(x, y++).print('==|status|==')
+        tx.at(x, y++).print('health:' + hero.health)
         tx.at(x, y).print('fans:' + env.status.followers
             + '(' + env.status.population + ')')
         y += 2
 
-        tx.at(x, y).print('==|items|==')
-        y ++
+        tx.at(x, y++).print('==|items|==')
 
         Object.keys(hero.pack.item).forEach(item => {
             const qty = hero.pack.item[item]
@@ -77,9 +73,38 @@ class SidePanel extends dna.hud.Panel {
                     tx.back(lib.cidx('baseLow'))
                       .face(lib.cidx('alert'))
                 }
-                tx.at(x, y).print(label)
-                y ++
+                tx.at(x, y++).print(label)
             }
         })
+
+        const w = this.w
+        x = this.x
+        y += 2
+        tx.at(x, y++).print('-----|log|------')
+
+        let i = hero.log.list.length - 1
+        while(y < this.h && i >= 0) {
+    
+            function logMessage(msg, nx, nw) {
+                if (msg.length > nw) {
+                    const first = msg.substring(0, w)
+                    const rest = msg.substring(w)
+                    tx.at(nx, y++).print(msg)
+
+                    if (nw === w) {
+                        // shift
+                        logMessage(rest, nx + 1, nw - 1)
+                    } else {
+                        logMessage(rest, nx, nw)
+                    }
+
+                } else {
+                    tx.at(nx, y++).print(msg)
+                }
+            }
+
+            const msg = hero.log.list[i--]
+            logMessage(msg, x, w)
+        }
     }
 }

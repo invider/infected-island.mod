@@ -16,7 +16,7 @@ class Person extends dna.bad.LifeForm {
             if (this.pack.grab('stones')) {
                 e.dead = true
                 sfx.play('selectLow')
-                this.log('grabbed a stone')
+                this.log('got a stone')
             }
         } else if (e.symbol === '*') {
             if (this.eat()) {
@@ -27,7 +27,7 @@ class Person extends dna.bad.LifeForm {
             } else if (this.pack.grab('food')) {
                 e.dead = true
                 sfx.play('selectLow')
-                this.log('picked up some food')
+                this.log('got some food')
             }
         }
     }

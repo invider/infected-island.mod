@@ -1,10 +1,10 @@
 const style = {
-    scale: 2.7,
+    scale: 2.5,
     font: '8px pixel-operator-mono8',
     cellWidth: 9,
     cellHeight: 10,
 
-    sidePanelWidth: 14,
+    sidePanelWidth: 15,
 
     aether: ' ',
     unexplored: ' ',
