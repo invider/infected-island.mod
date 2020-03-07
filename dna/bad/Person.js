@@ -16,18 +16,20 @@ class Person extends dna.bad.LifeForm {
             if (this.pack.grab('stones')) {
                 e.dead = true
                 sfx.play('selectLow')
-                this.log('got a stone')
+                this.log('+1 stone')
             }
         } else if (e.symbol === '*') {
-            if (this.eat()) {
+            const plusHealth = this.eat()
+            if (plusHealth > 0) {
                 e.dead = true
                 sfx.play('selectLow')
-                this.log('ate some food')
+                this.log(`+${plusHealth} health`)
 
             } else if (this.pack.grab('food')) {
                 e.dead = true
                 sfx.play('selectLow')
-                this.log('got some food')
+                this.log('+1 food')
+
             }
         }
     }
@@ -49,10 +51,14 @@ class Person extends dna.bad.LifeForm {
     }
 
     eat() {
-        if (this.health === this.maxHealth) return false
+        if (this.health === this.maxHealth) return 0
 
-        this.health = min(this.health
-            + env.tune.healthForFood, this.maxHealth)
-        return true
+        let plusHealth = env.tune.healthForFood
+        this.health += plusHealth
+        if (this.health > this.maxHealth) {
+            plusHealth -= (this.health - this.maxHealth)
+            this.health = this.maxHealth
+        }
+        return plusHealth
     }
 }
