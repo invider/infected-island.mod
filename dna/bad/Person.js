@@ -18,7 +18,13 @@ class Person extends dna.bad.LifeForm {
                 sfx(res.sfx.selectLow)
             }
         } else if (e.symbol === '*') {
-            this.eat()
+            if (this.eat()) {
+                e.dead = true
+                sfx(res.sfx.selectLow)
+            } else if (this.pack.grab('food')) {
+                e.dead = true
+                sfx(res.sfx.selectLow)
+            }
         }
     }
 
@@ -32,7 +38,10 @@ class Person extends dna.bad.LifeForm {
     }
 
     eat() {
-        this.health = min(this.health + env.tune.healthForFood,
-            this.maxHealth)
+        if (this.health === this.maxHealth) return false
+
+        this.health = min(this.health
+            + env.tune.healthForFood, this.maxHealth)
+        return true
     }
 }
