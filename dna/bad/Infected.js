@@ -7,15 +7,18 @@ class Infected {
         augment(this, st)
     }
 
-    infect(x, y, type) {
-        if (x < 0 || x >= this.w || y < 0 || y >= this.h) return
+    isInfectable(x, y) {
+        if (x < 0 || x >= this.w || y < 0 || y >= this.h) return false
 
         const land = this.world.get(x, y)
+        return (land !== '~' && land !== '^')
+    }
 
-        if (land !== '~' && land !== '^') {
-            this.map[y*this.w + x] = type || 1
-            return true
-        }
+    infect(x, y, type) {
+        if (!this.isInfectable(x, y)) return false
+
+        this.map[y*this.w + x] = type || 1
+        return true
     }
 
     source(x, y) {
@@ -57,6 +60,43 @@ class Infected {
             case 5: return this.spread(x - 1, y + 1, t, i++)
             case 6: return this.spread(x,     y + 1, t, i++)
             case 7: return this.spread(x + 1, y + 1, t, i++)
+            }
+        }
+    }
+
+    jump(x, y, leap, steps) {
+        if (steps > 0) {
+            steps --
+
+            const targets = [
+                { x: x, y: y - leap },
+                { x: x - leap, y: y },
+                { x: x, y: y + leap },
+                { x: x + leap, y: y },
+            ]
+            lib.math.shuffle(targets)
+
+            for (let i = 0; i < targets.length; i++) {
+                const t = targets[i]
+                if (this.isInfectable(t.x, t.y)) {
+                    return this.jump(t.x, t.y, leap, steps)
+                }
+            }
+            return false
+
+        } else {
+            if (this.infect(x, y, 2)) {
+                const n = env.tune.infection.minLife
+                        + RND(env.tune.infection.maxLife
+                            - env.tune.infection.minLife)
+                this.sources.push({ x:x, y:y, n:n })
+                return {
+                    x: x,
+                    y: y,
+                }
+
+            } else {
+                return false
             }
         }
     }
