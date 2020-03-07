@@ -59,62 +59,59 @@ class Intent {
         const world = this.__
         const hero = world.hero
 
-        function evaluate(l, x, y, step, from) {
+        function touch(l, x, y, step, from) {
             const i = intent.get(l, x, y)
             if (i !== 0) {
                 if (from) {
                     if (i > 0 && step < i) {
                         intent.set(l, x, y, step)
+                        return true
                     }
                 } else {
                     if (i > 0 && step > i) {
                         intent.set(l, x, y, step)
+                        return true
                     }
                 }
-                return
+                return false
+            } else {
+                return true
             }
+        }
+
+        function trace(l, x, y, step, max) {
+            if (!step) step = 0
 
             if (world.isWalkable(x, y)) {
                 intent.set(l, x, y, step)
             } else {
                 intent.set(l, x, y, -1)
+                return
             }
+
+            if (max) {
+                step ++
+                if (step > max) return
+            } else {
+                step --
+                if (step <= 0) return
+            }
+
+            const up    = touch(l, x,   y-1, step, max)
+            const left  = touch(l, x-1, y,   step, max)
+            const down  = touch(l, x,   y+1, step, max)
+            const right = touch(l, x+1, y,   step, max)
+
+            if (up)    trace(l, x,   y-1, step, max)
+            if (left)  trace(l, x-1, y,   step, max)
+            if (down)  trace(l, x,   y+1, step, max)
+            if (right) trace(l, x+1, y,   step, max)
         }
 
-        function toSource(l, x, y, step) {
-            step --
-            if (step <= 0) return
-
-            evaluate(l, x,   y-1, step, false)
-            evaluate(l, x-1, y, step, false)
-            evaluate(l, x+1, y, step, false)
-            evaluate(l, x,   y+1, step, false)
-
-            toSource(l, x,   y-1, step)
-            toSource(l, x-1, y, step)
-            toSource(l, x,   y+1, step)
-            toSource(l, x+1, y, step)
-        }
-
-        function fromSource(l, x, y, max, step) {
-            if (!step) step = 0
-            step ++
-            if (step > max) return
-
-            evaluate(l, x,   y-1, step, true)
-            evaluate(l, x-1, y, step, true)
-            evaluate(l, x+1, y, step, true)
-            evaluate(l, x,   y+1, step, true)
-
-            fromSource(l, x,   y-1, max, step)
-            fromSource(l, x-1, y, max, step)
-            fromSource(l, x,   y+1, max, step)
-            fromSource(l, x+1, y, max, step)
-        }
 
         this.clear()
-        //fromSource(0, hero.x, hero.y, 2)
-        //toSource(1, hero.x, hero.y, 5)
+        trace(0, hero.x, hero.y, 0, env.tune.followingRadius)
+        //trace(0, hero.x, hero.y, 5)
     }
 
     clear() {

@@ -4,6 +4,7 @@ const tune = {
     keyRepeat:  .3,
     fogOfWar: true,
     defaultFoV: 7,
+    followingRadius: 15,
     hideUnexplored: true,
     solidAether:    true,
     zoomStep:   0.2,
