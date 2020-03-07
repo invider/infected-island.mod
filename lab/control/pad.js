@@ -40,6 +40,7 @@ function evo(dt) {
         if (d.buttons[b[2]] && d.buttons[b[2]].pressed) y = 1
         if (d.buttons[b[3]] && d.buttons[b[3]].pressed) x = 1
 
+
         if (x < -sens) {
             activate(id)
             p.act(1, id)
@@ -62,31 +63,22 @@ function evo(dt) {
             p.stop(2, id)
         }
 
-        /*
-        if (d.buttons[0] && d.buttons[0].pressed) {
+        if (d.buttons[b[4]] && d.buttons[b[4]].pressed) {
             activate(id)
-            p.act(id, p.KICK)
+            p.act(4, id)
         } else {
-            p.stop(id, p.KICK)
+            p.stop(4, id)
         }
-        if (d.buttons[1] && d.buttons[1].pressed) {
+        if (d.buttons[b[5]] && d.buttons[b[5]].pressed) {
             activate(id)
-            p.act(id, p.PUNCH)
+            p.act(5, id)
         } else {
-            p.stop(id, p.PUNCH)
+            p.stop(5, id)
         }
-        if (d.buttons[2] && d.buttons[2].pressed) {
-            activate(id)
-            p.act(id, p.CUT)
+        if (d.buttons[b[6]] && d.buttons[b[6]].pressed) {
+            p.act(6, id)
         } else {
-            p.stop(id, p.CUT)
+            p.stop(6, id)
         }
-        if (d.buttons[3] && d.buttons[3].pressed) {
-            activate(id)
-            p.act(id, p.BLOCK)
-        } else {
-            p.stop(id, p.BLOCK)
-        }
-        */
     })
 }
