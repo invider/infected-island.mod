@@ -24,6 +24,16 @@ function keyDown(e) {
                     lab.textMode.sidePanel.hide()
                 }
                 break
+
+            case 'F7':
+                if (res.island) {
+                    const data = res.island.toDataURL()
+                    lib.img.downloadDataURL(data, 'island-map')
+                }
+                break
+            case 'F8':
+                lib.img.screenshot('infected-island')
+                break
         }
     }
 }
