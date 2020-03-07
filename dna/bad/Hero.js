@@ -8,6 +8,7 @@ class Hero extends dna.bad.Person {
         this.detach(this.randomWalker)
         this.attach(dna.pod.totalControl)
         this.attach(dna.pod.heroPack)
+        this.attach(dna.pod.log)
     }
 
     infect() {

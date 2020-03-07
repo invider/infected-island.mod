@@ -34,6 +34,8 @@ class LifeForm extends dna.Mob {
         }
     }
 
+    log() {}
+
     kill() {
         this.dead = true
         log(`${this.name} has died!`)

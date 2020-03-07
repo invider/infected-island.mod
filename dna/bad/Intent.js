@@ -113,7 +113,7 @@ class Intent {
         }
 
         this.clear()
-        fromSource(0, hero.x, hero.y, 10)
+        //fromSource(0, hero.x, hero.y, 2)
         //toSource(1, hero.x, hero.y, 5)
     }
 

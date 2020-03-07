@@ -16,14 +16,18 @@ class Person extends dna.bad.LifeForm {
             if (this.pack.grab('stones')) {
                 e.dead = true
                 sfx(res.sfx.selectLow)
+                this.log('grabbed a stone')
             }
         } else if (e.symbol === '*') {
             if (this.eat()) {
                 e.dead = true
                 sfx(res.sfx.selectLow)
+                this.log('ate some food')
+
             } else if (this.pack.grab('food')) {
                 e.dead = true
                 sfx(res.sfx.selectLow)
+                this.log('picked up some food')
             }
         }
     }
@@ -31,9 +35,16 @@ class Person extends dna.bad.LifeForm {
     push(e) {
         if (e instanceof dna.bad.Rabbit) {
             // kill the rabbit for food
-            if (this.pack.grab('food')) {
-                e.kill()
-            }
+            e.kill()
+
+            this._.spawn({
+                symbol: '*',
+                x: e.x,
+                y: e.y,
+            })
+
+            sfx(res.sfx.selectLow)
+            this.log('killed a rabbit')
         }
     }
 

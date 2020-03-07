@@ -25,7 +25,10 @@ class Mob {
     attach(pod) {
         if (!pod) return
 
-        const podClone = augment({}, pod)
+        let podClone
+        if (isFun(pod)) podClone = pod
+        else podClone = augment({}, pod)
+
         this.pod.push(podClone)
         if (podClone.alias) this[podClone.alias] = podClone
         else if (podClone.name) this[podClone.name] = podClone
