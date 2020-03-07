@@ -54,9 +54,10 @@ class SidePanel extends dna.hud.Panel {
 
         tx.at(x, y++).print('==|status|==')
         tx.at(x, y++).print('health:' + hero.health)
-        tx.at(x, y).print('fans:' + env.status.followers
+        tx.at(x, y++).print('fans:' + env.status.followers
             + '(' + env.status.population + ')')
-        y += 2
+        tx.at(x, y++).print('pos:' + hero.x + 'x' + hero.y)
+        y ++
 
         tx.at(x, y++).print('==|items|==')
 
@@ -80,7 +81,9 @@ class SidePanel extends dna.hud.Panel {
         const w = this.w
         x = this.x
         y += 2
-        tx.at(x, y++).print('-----|log|------')
+        tx.back(lib.cidx('baseLow'))
+          .face(lib.cidx('alert'))
+          .at(x, y++).print('-----|log|------')
 
         let i = hero.log.list.length - 1
         while(y < this.h && i >= 0) {

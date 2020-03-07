@@ -20,19 +20,19 @@ function grab(type) {
 }
 
 function drop(type) {
-    if (!this.item[type]) return false
+    if (!this.item[type]) return 0  // nothing to drop
 
     const mob = this.__
     const world = mob._
-    if (world.getProp(mob.x, mob.y)) return false
+    if (world.getProp(mob.x, mob.y)) return 0 // occupido
 
     this.item[type] --
     if (this.item[type] === 0) {
         delete this.item[type]
         this.itemCount --
+        return -1
     }
-    sfx.play('selectLow')
-    return true
+    return 1
 }
 
 function freeSpace() {

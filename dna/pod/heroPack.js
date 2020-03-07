@@ -4,6 +4,7 @@ const pack = dna.pod.pack
 const heroPack = augment({}, pack)
 
 augment(heroPack, {
+    alias: 'pack',
     capacity: 40,
     selected: -1,
 
@@ -32,15 +33,15 @@ augment(heroPack, {
         const hero = this.__
         const world = this.__._
         const type = this.getSelected()
-        this.drop(type)
+
+
+        const dropped = this.drop(type)
+        if (!dropped) return false
+        if (dropped < 0) this.selectPrev()
 
         switch(type) {
             case 'stones':
-                world.spawn({
-                    symbol: 'o',
-                    x: hero.x,
-                    y: hero.y,
-                })
+                lib.factory.hedge(world, hero.x, hero.y)
                 break
             case 'food':
                 world.spawn({
@@ -48,6 +49,7 @@ augment(heroPack, {
                     x: hero.x,
                     y: hero.y,
                 })
+                hero.log('droped food')
                 break
         }
     }

@@ -12,6 +12,7 @@ const tune = {
     defaultSegmentHeight:   128,
     solid:  ['~', '^', '#', '|', '-'],
     opaque: ['#', '-'],
+    resistant: ['~', '^', '#'],
 
     infection: {
         minLife: 11,

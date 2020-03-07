@@ -11,7 +11,9 @@ class Infected {
         if (x < 0 || x >= this.w || y < 0 || y >= this.h) return false
 
         const land = this.world.get(x, y)
-        return (land !== '~' && land !== '^')
+
+        return !env.tune.resistant.includes(land)
+        //return (land !== '~' && land !== '^' && land !== '#')
     }
 
     infect(x, y, type) {
