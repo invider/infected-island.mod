@@ -388,6 +388,23 @@ class TextMode extends sys.LabFrame {
         this.drawContent()
     }
 
+    lx(x) {
+        const sx = (x - this.x)/this.scale
+        return floor(sx / this.cellWidth)
+    }
+
+    ly(y) {
+        const sy = (y - this.y)/this.scale
+        return floor(sy / this.cellHeight)
+    }
+
+    pick(x, y) {
+        // translate into text coordinate space
+        const lx = this.lx(x)
+        const ly = this.ly(y)
+        return this.viewPort.pick(lx, ly)
+    }
+
     onAttached(e) {
         log('attached ' + e.name)
     }

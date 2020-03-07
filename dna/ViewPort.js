@@ -1,5 +1,5 @@
 const df = {
-    name: 'viewport',
+    name: 'viewPort',
     x: 0,
     y: 0,
     w: 10,
@@ -197,5 +197,17 @@ class ViewPort {
     draw() {
         this.moveOverTarget(this.follow)
         this.print()
+    }
+
+    pick(x, y) {
+        const lx = x - this.x
+        const ly = y - this.y
+        if (lx < 0 || lx >= this.w
+            || ly < 0 || ly >= this.h) return
+
+        const gx = this.port.x + lx
+        const gy = this.port.y + ly
+
+        return this.world.getEntity(gx, gy)
     }
 }

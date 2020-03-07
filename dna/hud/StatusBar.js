@@ -9,6 +9,20 @@ class StatusBar extends dna.hud.Panel {
 
     adjust() {}
 
+    pick() {
+        return this.__.pick(mouse.x, mouse.y)
+    }
+
+    matchLabel(target) {
+        if (target.name) return target.name
+        if (target.symbol) {
+            switch(target.symbol) {
+                case 'o': return 'Stone';
+                case '*': return 'Food';
+            }
+        }
+    }
+
     draw() {
         const hero = this.world.hero
         const tx = this.__
@@ -30,6 +44,9 @@ class StatusBar extends dna.hud.Panel {
         if (hero.health < 100)  {
             label = 'Damaged'
         }
+
+        const target = this.pick()
+        if (target) label = this.matchLabel(target)
 
         tx
             .face(lib.cidx('alert'))

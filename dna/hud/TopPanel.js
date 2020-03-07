@@ -54,8 +54,10 @@ class TopPanel extends dna.hud.Panel {
                 }
             }
         }
+        /*
         tx.at(w - 40, 0).print('p:' + islanders
             + '/' + rabbits)
+        */
 
         env.status.population = islanders
         env.status.followers = followers
