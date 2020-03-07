@@ -27,7 +27,6 @@ class LifeForm extends dna.Mob {
 
     infect() {
         this.health --
-        //sfx(res.sfx.move)
 
         if (this.health <= 0) {
             this.kill()

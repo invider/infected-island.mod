@@ -15,18 +15,18 @@ class Person extends dna.bad.LifeForm {
             // grab the stone
             if (this.pack.grab('stones')) {
                 e.dead = true
-                sfx(res.sfx.selectLow)
+                sfx.play('selectLow')
                 this.log('grabbed a stone')
             }
         } else if (e.symbol === '*') {
             if (this.eat()) {
                 e.dead = true
-                sfx(res.sfx.selectLow)
+                sfx.play('selectLow')
                 this.log('ate some food')
 
             } else if (this.pack.grab('food')) {
                 e.dead = true
-                sfx(res.sfx.selectLow)
+                sfx.play('selectLow')
                 this.log('picked up some food')
             }
         }
@@ -43,7 +43,7 @@ class Person extends dna.bad.LifeForm {
                 y: e.y,
             })
 
-            sfx(res.sfx.selectLow)
+            sfx.play('selectLow')
             this.log('killed a rabbit')
         }
     }

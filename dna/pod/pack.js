@@ -31,7 +31,7 @@ function drop(type) {
         delete this.item[type]
         this.itemCount --
     }
-    sfx(res.sfx.selectLow)
+    sfx.play('selectLow')
     return true
 }
 
