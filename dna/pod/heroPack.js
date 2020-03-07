@@ -46,6 +46,7 @@ augment(heroPack, {
             case 'food':
                 world.spawn({
                     symbol: '*',
+                    heroic: true,
                     x: hero.x,
                     y: hero.y,
                 })

@@ -12,22 +12,29 @@ function behave() {
     const mob = this
     const world = this._
 
-    const proximity = world.intent.get(0, mob.x, mob.y)
-
-    if (proximity < 1) {
+    if (mob.pack.itemCount < 1) {
+        mob.status = 'looking for food and stones'
         mob.move.dir(RND(3))
-        mob.status = 'just walking around'
         return
+    }
+    
+    const proximity = world.intent.get(1, mob.x, mob.y)
+    mob.status = 'looking for something @' + proximity
 
-    } else if (proximity > 0 && proximity < 3) {
-        mob.status = 'standing near the hero'
+    if (proximity === 0) {
+        mob.move.dir(RND(3))
+        mob.status = 'looking for altar'
+        return
+    }
+    if (proximity > 0 && proximity < 3) {
+        mob.status = 'standing near altar'
         return
     }
 
-    const dir = world.intent.min(0, mob.x, mob.y)
+    const dir = world.intent.min(1, mob.x, mob.y)
     if (dir >= 0) {
         mob.move.dir(dir)
-        mob.status = 'following the hero'
+        mob.status = 'moving towards altar'
     } else {
         mob.move.dir(RND(3))
     }

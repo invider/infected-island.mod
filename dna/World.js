@@ -193,7 +193,7 @@ class World extends sys.Frame {
     }
 
     onMovement() {
-        this.intent.recalc()
+        this.intent.recalc(0)
     }
 
     scheduleNext() {

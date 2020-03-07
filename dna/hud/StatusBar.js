@@ -14,6 +14,7 @@ class StatusBar extends dna.hud.Panel {
     }
 
     matchLabel(target) {
+        if (target.getStatus) return target.getStatus()
         if (target.name) return target.name
         if (target.symbol) {
             switch(target.symbol) {
@@ -40,10 +41,13 @@ class StatusBar extends dna.hud.Panel {
             tx.out(' ')
         }
 
+        let label = ''
+        /*
         let label = 'OK'
         if (hero.health < 100)  {
             label = 'Damaged'
         }
+        */
 
         const target = this.pick()
         if (target) label = this.matchLabel(target)

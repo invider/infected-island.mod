@@ -1,5 +1,5 @@
 
-const LEVELS = 2
+const LEVELS = 4
 
 class Intent {
 
@@ -54,7 +54,7 @@ class Intent {
         this.map[ l * this.ln + (y*this.w + x) ] = val
     }
 
-    recalc() {
+    recalc(level) {
         const intent = this
         const world = this.__
         const hero = world.hero
@@ -108,16 +108,41 @@ class Intent {
             if (right) trace(l, x+1, y,   step, max)
         }
 
+        switch(level) {
+            case 0:
+                this.clear(0)
+                trace(0, hero.x, hero.y, 0, env.tune.followingRadius)
+                //trace(0, hero.x, hero.y, 5)
+                break
 
-        this.clear()
-        trace(0, hero.x, hero.y, 0, env.tune.followingRadius)
-        //trace(0, hero.x, hero.y, 5)
+            case 1:
+                this.clear(1)
+                world.prop._ls.forEach(prop => {
+                    if (prop && !prop.dead && prop.symbol === 'X') {
+                        trace(1, prop.x, prop.y, 0, env.tune.altarRadius)
+                    }
+                })
+                break
+
+            default:
+                this.recalc(0)
+                this.recalc(1)
+        }
     }
 
-    clear() {
-        const l = this.ln * LEVELS
+    clear(level) {
+        const start = level * this.ln
+        const n = this.ln
 
-        for (let i = 0; i < l; i++) {
+        for (let i = start; i < start + n; i++) {
+            this.map[i] = 0
+        }
+    }
+
+    clearAll() {
+        const n = this.ln * LEVELS
+
+        for (let i = 0; i < n; i++) {
             this.map[i] = 0
         }
     }

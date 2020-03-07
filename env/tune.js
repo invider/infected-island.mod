@@ -5,6 +5,7 @@ const tune = {
     fogOfWar: true,
     defaultFoV: 7,
     followingRadius: 15,
+    altarRadius: 30,
     hideUnexplored: true,
     solidAether:    true,
     zoomStep:   0.2,
@@ -12,7 +13,7 @@ const tune = {
     defaultSegmentHeight:   128,
     solid:  ['~', '^', '#', '|', '-'],
     opaque: ['#', '-'],
-    resistant: ['~', '^', '#'],
+    resistant: ['~', '#'],
 
     infection: {
         minLife: 11,

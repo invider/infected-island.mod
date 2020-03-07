@@ -7,6 +7,7 @@ class LifeForm extends dna.Mob {
     constructor(st) {
         super(st)
         this.symbol = 'f'
+        this.status = ''
         this.health = 10
         this.maxHealth = 10
         this.attach(dna.pod.move)
@@ -38,5 +39,10 @@ class LifeForm extends dna.Mob {
     kill() {
         this.dead = true
         log(`${this.name} has died!`)
+    }
+
+    getStatus() {
+        if (this.status) return this.name + ' - ' + this.status
+        else return this.name
     }
 }

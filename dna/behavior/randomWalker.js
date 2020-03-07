@@ -10,6 +10,7 @@ function activate() {
 
 function behave() {
     this.move.dir(RND(3))
+    this.status = 'just walking around'
 }
 
 function onDeinstall() {
