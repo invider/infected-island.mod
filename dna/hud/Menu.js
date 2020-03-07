@@ -91,13 +91,25 @@ class Menu extends dna.hud.Panel {
     }
 
     hide() {
-        this.unbind()
-        this.hidden = true
-
         const menu = this
-        this.__._ls.forEach(e => {
-            if (e !== menu) e.show()
+        menu.unbind()
+
+        lab.spawn(dna.Transition, {
+            Z: 1001,
+            fadein: 1,
+            keep: .5,
+            fadeout: 1,
+
+            onKeep: function() {
+                menu.hidden = true
+            },
+
+            onFadeout: function() {
+                menu.__._ls.forEach(e => {
+                    if (e !== menu) e.show()
+                })
+                menu.__.adjust()
+            },
         })
-        this.__.adjust()
     }
 }

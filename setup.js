@@ -5,4 +5,5 @@ function setup() {
 
     lib.factory.sfx()
     lib.factory.ui()
+    trap('fadein')
 }
