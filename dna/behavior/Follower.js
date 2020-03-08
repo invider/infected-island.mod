@@ -1,6 +1,16 @@
 // @depends(dna/behavior/Behavior)
 class Follower extends dna.behavior.Behavior {
 
+    followHero(world, mob) {
+        const dir = world.intent.dir(0, mob.x, mob.y, false)
+        if (dir >= 0) {
+            mob.move.dir(dir)
+            mob.status = 'following the hero'
+        } else {
+            this.behavior.randomStep()
+        }
+    }
+
     behave() {
         const mob = this
         const world = this._
@@ -16,13 +26,7 @@ class Follower extends dna.behavior.Behavior {
             return
         }
 
-        const dir = world.intent.min(0, mob.x, mob.y)
-        if (dir >= 0) {
-            mob.move.dir(dir)
-            mob.status = 'following the hero'
-        } else {
-            this.behavior.randomStep()
-        }
+        mob.behavior.followHero(world, mob)
     }
 
 }

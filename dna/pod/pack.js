@@ -35,6 +35,14 @@ function drop(type) {
     return 1
 }
 
+function dropAny() {
+    if (this.itemCount === 0) return 0
+
+    // get the first fit
+    const type = Object.keys(this.item)[0]
+    return this.drop(type)
+}
+
 function freeSpace() {
     return (this.capacity - Object.values(this.item).reduce((a, b) => a + b, 0))
 }

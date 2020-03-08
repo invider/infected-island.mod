@@ -11,6 +11,8 @@ class Person extends dna.bad.LifeForm {
     }
 
     touch(e) {
+        if (this.skipLoot) return
+
         if (e.symbol === 'o') {
             // grab the stone
             if (this.pack.grab('stones')) {
@@ -18,6 +20,7 @@ class Person extends dna.bad.LifeForm {
                 sfx.play('selectLow')
                 this.log('+1 stone')
             }
+
         } else if (e.symbol === '*') {
             const plusHealth = this.eat()
             if (plusHealth > 0) {

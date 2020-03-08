@@ -17,34 +17,48 @@ class Intent {
         return this.map[ l * this.ln + (y*this.w + x) ]
     }
 
-    getm(l, x, y) {
-        const v = this.get(l, x, y)
-        if (!v || v < 0) return 999
+    getMin(intent, l, x, y) {
+        const v = intent.get(l, x, y)
+        if (!v || v <= 0) return 999
         return v
     }
 
-    min(l, x, y) {
-        const center = this.getm(l, x, y)
-        const up = this.getm(l, x, y - 1)
-        const left = this.getm(l, x - 1, y)
-        const down = this.getm(l, x, y + 1)
-        const right = this.getm(l, x + 1, y)
+    getMax(intent, l, x, y) {
+        const v = intent.get(l, x, y)
+        if (!v || v <= 0) return 0
+        return v
+    }
 
-        if (up < center && up <= left
-                && up <= down && up <= right) {
-            return 0
+    dir(l, x, y, max) {
+        const w = []
+        const fn = max? this.getMax : this.getMin
+        w[0] = fn(this, l, x, y)
+        w[1] = fn(this, l, x, y - 1)
+        w[2] = fn(this, l, x - 1, y)
+        w[3] = fn(this, l, x, y + 1)
+        w[4] = fn(this, l, x + 1, y)
+
+        const v = lib.math.shuffle([1, 2, 3, 4])
+
+        function isFit(j) {
+            let val = w[j]
+            let fit = val
+
+            for (let i = 0; i < 5; i++) {
+                if (max) {
+                    if (w[i] > fit) fit = w[i]
+                } else {
+                    if (w[i] < fit) fit = w[i]
+                }
+            }
+
+            if (max) return (val >= fit)
+            else return (val <= fit)
         }
-        if (left < center && left <= up
-                && left <= down && left <= right) {
-            return 1
-        }
-        if (down < center && down <= up
-                && down <= left && down <= right) {
-            return 2
-        }
-        if (right < center && right <= up
-                && right <= left && right <= down) {
-            return 3
+
+        for (let i = 0; i < 4; i++) {
+            const j = v[i]
+            if (isFit(j)) return (j - 1)
         }
         return -1
     }
