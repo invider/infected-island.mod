@@ -157,6 +157,8 @@ class World extends sys.Frame {
     }
 
     evo(dt) {
+        if (this.paused) return
+
         if (this.scheduled > 0) {
             this.timer -= dt
             if (this.timer <= 0) {

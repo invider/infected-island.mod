@@ -52,14 +52,14 @@ class SidePanel extends dna.hud.Panel {
         let x= this.x + 1
         let y = this.y + 1
 
-        tx.at(x, y++).print('==|status|==')
+        tx.at(x, y++).print('[ status ]')
         tx.at(x, y++).print('health:' + hero.health)
         tx.at(x, y++).print('fans:' + env.status.followers
             + '(' + env.status.population + ')')
         tx.at(x, y++).print('pos:' + hero.x + 'x' + hero.y)
         y ++
 
-        tx.at(x, y++).print('==|items|==')
+        tx.at(x, y++).print('[ inventory ]')
 
         Object.keys(hero.pack.item).forEach(item => {
             const qty = hero.pack.item[item]
@@ -83,7 +83,7 @@ class SidePanel extends dna.hud.Panel {
         y += 2
         tx.back(lib.cidx('baseLow'))
           .face(lib.cidx('alert'))
-          .at(x, y++).print('-----|log|------')
+          .at(x, y++).print('[ log ]')
 
         let i = hero.log.list.length - 1
         while(y < this.h && i >= 0) {

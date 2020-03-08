@@ -1,8 +1,10 @@
 function keyDown(e) {
     if (e.repeat) return
 
+
     const action = env.bind.keyMap[e.code]
     if (action && !e.metaKey && !e.altKey && !e.ctrlKey) {
+        if (lab.world && lab.world.paused) lab.world.paused = false
         lab.control.player.act(action.id, action.player)
 
     } else {
@@ -18,6 +20,10 @@ function keyDown(e) {
                 lab.world.autoevolve = !lab.world.autoevolve
                 break
             case 'KeyP':
+                lab.world.paused = !lab.world.paused
+                break
+
+            case 'Backslash':
                 if (lab.textMode.sidePanel.hidden) {
                     lab.textMode.sidePanel.show()
                 } else {
