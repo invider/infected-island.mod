@@ -17,16 +17,18 @@ const tune = {
     opaque: ['#', '-'],
     resistant: ['~', '^', '#'],
     destructable: ['^', '#'],
-    destructionFactor: .1,
+    destructionFactor: .05,
+    guardSteps: 16,
+    guardFactor: .3, // chance of containment for a single turn
 
     infection: {
         minLife: 11,
-        maxLife: 47, 
+        maxLife: 27, 
     },
 
     // how much rabbit have to eat
     // before it's ready to procreate
-    rabbitProcreateFood: 10,
+    rabbitProcreateFood: 9,
 
     healthForFood: 25,
 }

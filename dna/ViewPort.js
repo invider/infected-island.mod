@@ -117,7 +117,7 @@ class ViewPort {
                     case '"': c = cidx('forest'); break;
                     }
 
-                    if (infected) {
+                    if (infected > 0) {
                         c = cidx('infected')
                     }
 

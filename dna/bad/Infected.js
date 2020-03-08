@@ -4,6 +4,7 @@ class Infected {
         this.name = 'infected'
         this.map = []
         this.sources = []
+        this.guards = []
         this.cells = 0
         augment(this, st)
     }
@@ -23,17 +24,34 @@ class Infected {
         //return (land !== '~' && land !== '^' && land !== '#')
     }
 
+    isInfected(x, y) {
+        return this.map[y*this.w + x]
+    }
+
     infect(x, y, type) {
         if (this.isDestructable(x, y)
                 && rnd() < env.tune.destructionFactor) {
             this.world.set(x, y, '.')
             this.map[y*this.w + x] = type || 1
+            this.cells ++
             return true
         }
         if (!this.isInfectable(x, y)) return false
 
+        const prev = this.map[y*this.w + x]
+        if (!prev || prev <= 0) this.cells ++
         this.map[y*this.w + x] = type || 1
         return true
+    }
+
+    cure(x, y, type) {
+        if (this.isInfected(x, y) === 1) {
+            this.cells --
+            this.map[y*this.w + x] = type || 0
+            return true
+        } else if (type < 0) {
+            this.map[y*this.w + x] = type
+        }
     }
 
     source(x, y) {
@@ -57,8 +75,6 @@ class Infected {
         if (!this.isInfected(x, y)) {
             const infected = this.infect(x, y)
 
-            if (infected) this.cells ++
-
             if (t === 2 && infected) {
                 this.source(x, y)
             }
@@ -69,14 +85,14 @@ class Infected {
             else if (i > 1024) return false
 
             switch(RND(7)) {
-            case 0: return this.spread(x - 1, y - 1, t, i++)
-            case 1: return this.spread(x + 1, y - 1, t, i++)
-            case 2: return this.spread(x,     y - 1, t, i++)
-            case 3: return this.spread(x - 1, y, t, i++)
-            case 4: return this.spread(x + 1, y, t, i++)
-            case 5: return this.spread(x - 1, y + 1, t, i++)
-            case 6: return this.spread(x,     y + 1, t, i++)
-            case 7: return this.spread(x + 1, y + 1, t, i++)
+            case 0: return this.spread(x - 1, y - 1, t, i+1)
+            case 1: return this.spread(x + 1, y - 1, t, i+1)
+            case 2: return this.spread(x,     y - 1, t, i+1)
+            case 3: return this.spread(x - 1, y, t,     i+1)
+            case 4: return this.spread(x + 1, y, t,     i+1)
+            case 5: return this.spread(x - 1, y + 1, t, i+1)
+            case 6: return this.spread(x,     y + 1, t, i+1)
+            case 7: return this.spread(x + 1, y + 1, t, i+1)
             }
         }
     }
@@ -118,11 +134,30 @@ class Infected {
         }
     }
 
-    isInfected(x, y) {
-        return this.map[y*this.w + x]
+    contain(x, y, i) {
+        if (this.isInfected(x, y) > 0) {
+            this.cure(x, y)
+            return true
+
+        } else {
+            if (!i) i = 0
+            else if (i > env.tune.guardSteps) return false
+
+            switch(RND(3)) {
+                case 0: return this.contain(x,     y - 1, i+1)
+                case 1: return this.contain(x - 1, y,     i+1)
+                case 2: return this.contain(x,     y + 1, i+1)
+                case 3: return this.contain(x + 1, y,     i+1)
+            }
+        }
     }
 
-    next() {
+    guard(x, y) {
+        this.cure(x, y, -1)
+        this.guards.push({ x:x, y:y })
+    }
+
+    evoSources() {
         for (let i = 0; i < this.sources.length; i++) {
             const src = this.sources[i]
             this.spread(src.x, src.y, 1)
@@ -133,5 +168,19 @@ class Infected {
                 if (spread) this.killSource(src)
             }
         }
+    }
+
+    evoGuards() {
+        for (let i = 0; i < this.guards.length; i++) {
+            const guard = this.guards[i]
+            if (rnd() < env.tune.guardFactor) {
+                this.contain(guard.x, guard.y)
+            }
+        }
+    }
+
+    next() {
+        this.evoSources()
+        this.evoGuards()
     }
 }

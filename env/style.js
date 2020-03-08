@@ -9,4 +9,5 @@ const style = {
     aether: ' ',
     unexplored: ' ',
     infectionSource: '!',
+    guard: '$',
 }

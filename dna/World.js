@@ -79,6 +79,7 @@ class World extends sys.Frame {
 
         const source = this.infected.isInfected(x, y)
         if (source === 2) return env.style.infectionSource
+        if (source === -1) return env.style.guard
 
         return this.segment.get(x, y)
     }
@@ -181,7 +182,10 @@ class World extends sys.Frame {
             if (this.timer <= 0) {
                 this.scheduled --
                 if (this.scheduled === 0) this.timer = 0
-                else this.timer = env.tune.turnDelay
+                else {
+                    if (this.fast) this.timer = env.tune.fastTime
+                    else this.timer = env.tune.turnDelay
+                }
                 this.next()
             }
         } else if (this.autoevolve) {
