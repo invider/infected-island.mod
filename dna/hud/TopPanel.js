@@ -61,6 +61,7 @@ class TopPanel extends dna.hud.Panel {
 
         env.status.population = islanders
         env.status.followers = followers
+        env.status.rabbits = rabbits
 
         tx.at(1, 0).print('Infected:' + env.status.infected + '%')
     }

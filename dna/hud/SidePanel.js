@@ -54,8 +54,9 @@ class SidePanel extends dna.hud.Panel {
 
         tx.at(x - 1, y++).print('[ Status ]')
         tx.at(x, y++).print('health:' + hero.health)
-        tx.at(x, y++).print('fans:' + env.status.followers
-            + '(' + env.status.population + ')')
+        tx.at(x, y++).print('pop.:' + env.status.population
+            + '(' + env.status.followers + ')')
+        tx.at(x, y++).print('rabbits:' + env.status.rabbits)
         tx.at(x, y++).print('pos:' + hero.x + 'x' + hero.y)
         y ++
 
