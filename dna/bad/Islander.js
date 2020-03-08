@@ -9,7 +9,7 @@ class Islander extends dna.bad.Person {
         this.name = 'Islander ' + (++id)
         this.symbol = '%'
         this.attach(dna.pod.pack)
-        this.attach(dna.behavior.gatherer)
+        this.attach(dna.behavior.Gatherer)
     }
 
     touch(e) {
@@ -23,6 +23,6 @@ class Islander extends dna.bad.Person {
 
     follow() {
         this.follower = true
-        this.attach(dna.behavior.follower)
+        this.attach( dna.behavior.Follower )
     }
 }

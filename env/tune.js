@@ -3,7 +3,7 @@ const tune = {
     turnTime:   1,
     keyRepeat:  .3,
     fogOfWar: true,
-    defaultFoV: 7,
+    defaultFoV: 11,
     followingRadius: 15,
     altarRadius: 30,
     hideUnexplored: true,
@@ -22,7 +22,7 @@ const tune = {
 
     // how much rabbit have to eat
     // before it's ready to procreate
-    rabbitProcreateFood: 15,
+    rabbitProcreateFood: 10,
 
     healthForFood: 25,
 }

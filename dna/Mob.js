@@ -22,19 +22,35 @@ class Mob {
 
     init() {}
 
-    attach(pod) {
-        if (!pod) return
+    attach(src, st) {
+        if (!src) throw 'no source object to attach!'
 
-        let podClone
-        if (isFun(pod)) podClone = pod
-        else podClone = augment({}, pod)
+        let pod
 
-        this.pod.push(podClone)
-        if (podClone.alias) this[podClone.alias] = podClone
-        else if (podClone.name) this[podClone.name] = podClone
-        podClone.__ = this
+        if (isFun(src)) {
+            if (/[A-Z]/.test(src.name[0])) {
+                // upper-case means constructor
+                pod = new src(st)
+                if (!pod.name) {
+                    pod.name = src.name[0].toLowerCase()
+                        + src.name.substring(1)
+                }
+            } else {
+                // just a function pod - attach as is
+                pod = src
+            }
+        } else {
+            pod = {}
+            augment(pod, src) 
+            augment(pod, st)
+        }
 
-        if (podClone.onInstall) podClone.onInstall()
+        this.pod.push(pod)
+        if (pod.alias) this[pod.alias] = pod
+        else if (pod.name) this[pod.name] = pod
+        pod.__ = this
+
+        if (pod.onInstall) pod.onInstall()
     }
 
     detach(pod) {

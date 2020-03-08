@@ -11,7 +11,7 @@ class LifeForm extends dna.Mob {
         this.health = 10
         this.maxHealth = 10
         this.attach(dna.pod.move)
-        this.attach(dna.behavior.randomWalker)
+        this.attach(dna.behavior.RandomWalker)
     }
 
     push(e) {
