@@ -375,7 +375,7 @@ class TextMode extends sys.LabFrame {
 
                 // character
                 if (symbol) {
-                    text(symbol, tx*cw + hw, ty*ch + hh)
+                    text(symbol, tx*cw + hw + .5, ty*ch + hh + .5)
                 } else {
                     //text('.', tx*cw + hw, ty*ch + hh)
                 }

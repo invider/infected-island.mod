@@ -156,6 +156,23 @@ class World extends sys.Frame {
         return true
     }
 
+    landArea() {
+        let area = 0
+        for (let y = 0; y < this.segment.h; y++) {
+            for (let x = 0; x < this.segment.w; x++) {
+                const land = this.getLand(x, y)
+                if (land && land !== '~' && land !== '^') area ++
+            }
+        }
+        return area
+    }
+
+    calculateInfectedArea() {
+        const total = this.landArea()
+        const infected = round((this.infected.cells / total) * 100)
+        env.status.infected = infected
+    }
+
     evo(dt) {
         if (this.paused) return
 
@@ -171,7 +188,9 @@ class World extends sys.Frame {
             this.timer -= dt
             if (this.timer <= 0) {
                 this.next()
-                this.timer = env.tune.turnTime
+
+                if (this.fast) this.timer = env.tune.fastTime
+                else this.timer = env.tune.turnTime
             }
         }
     }
@@ -191,7 +210,9 @@ class World extends sys.Frame {
                 ghost.next()
             }
         }
+
         this.onMovement()
+        this.calculateInfectedArea()
     }
 
     onMovement() {

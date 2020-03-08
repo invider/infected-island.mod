@@ -26,7 +26,7 @@ class TopPanel extends dna.hud.Panel {
             tx.out(' ')
         }
 
-        let turn = 'turn:' + world.turn
+        let turn = 'Turn:' + world.turn
         if (world.scheduled) turn += '<' + world.scheduled
         tx.at(w - 14, 0).print(turn)
         
@@ -61,5 +61,7 @@ class TopPanel extends dna.hud.Panel {
 
         env.status.population = islanders
         env.status.followers = followers
+
+        tx.at(1, 0).print('Infected:' + env.status.infected + '%')
     }
 }

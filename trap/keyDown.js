@@ -19,6 +19,9 @@ function keyDown(e) {
             case 'KeyT':
                 lab.world.autoevolve = !lab.world.autoevolve
                 break
+            case 'KeyF':
+                lab.world.fast = !lab.world.fast
+                break
             case 'KeyP':
                 lab.world.paused = !lab.world.paused
                 break

@@ -4,7 +4,14 @@ class Infected {
         this.name = 'infected'
         this.map = []
         this.sources = []
+        this.cells = 0
         augment(this, st)
+    }
+
+    isDestructable(x, y) {
+        if (x < 0 || x >= this.w || y < 0 || y >= this.h) return false
+        const land = this.world.get(x, y)
+        return env.tune.destructable.includes(land)
     }
 
     isInfectable(x, y) {
@@ -17,6 +24,12 @@ class Infected {
     }
 
     infect(x, y, type) {
+        if (this.isDestructable(x, y)
+                && rnd() < env.tune.destructionFactor) {
+            this.world.set(x, y, '.')
+            this.map[y*this.w + x] = type || 1
+            return true
+        }
         if (!this.isInfectable(x, y)) return false
 
         this.map[y*this.w + x] = type || 1
@@ -43,7 +56,9 @@ class Infected {
     spread(x, y, t, i) {
         if (!this.isInfected(x, y)) {
             const infected = this.infect(x, y)
-            
+
+            if (infected) this.cells ++
+
             if (t === 2 && infected) {
                 this.source(x, y)
             }
