@@ -2,6 +2,8 @@
 
 const df = {
     selected: 0,
+    title: 'The Game',
+    subtitle: 'by Team',
 }
 
 class Menu extends dna.hud.Panel {
@@ -27,8 +29,24 @@ class Menu extends dna.hud.Panel {
     draw() {
         const tx = this.__
         const len = this.items.length
+        this.background()
 
-        let y = floor(tx.th/2 - len/2)
+        // title
+        let y = floor(tx.th * .25)
+        let x = floor(tx.tw/2 - this.title.length/2)
+        tx.back(lib.cidx('base'))
+            .face(lib.cidx('alert'))
+            .at(x, y).print(this.title)
+
+        // subtitle
+        y = floor(tx.th * .9)
+        x = floor(tx.tw - this.subtitle.length)
+        tx.back(lib.cidx('base'))
+            .face(lib.cidx('alert'))
+            .at(x, y).print(this.subtitle)
+            
+
+        y = floor(tx.th/2 - len/2)
 
         for (let i = 0; i < len; i++) {
             const item = this.items[i]
