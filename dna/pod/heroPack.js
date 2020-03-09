@@ -2,11 +2,23 @@
 const pack = dna.pod.pack
 
 const heroPack = augment({}, pack)
+heroPack.doGrab = heroPack.grab
 
 augment(heroPack, {
     alias: 'pack',
     capacity: 40,
     selected: -1,
+
+    grab(type) {
+        if (this.doGrab(type)) {
+            sfx.play('pickup', .5)
+            return true
+        }
+    },
+
+    provide(type) {
+        return this.doGrab(type)
+    },
 
     isSelected: function(type) {
         const items = Object.keys(this.item)
@@ -51,6 +63,7 @@ augment(heroPack, {
                     y: hero.y,
                 })
                 hero.log('droped food')
+                sfx.play('selectLow', .4)
                 break
         }
     }

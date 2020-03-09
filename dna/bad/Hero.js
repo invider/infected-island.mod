@@ -13,7 +13,7 @@ class Hero extends dna.bad.Person {
 
     infect(n) {
         super.infect(n)
-        if (!this.dead) sfx.play('move')
+        if (!this.dead) sfx.play('move2', .7)
     }
 
     kill() {

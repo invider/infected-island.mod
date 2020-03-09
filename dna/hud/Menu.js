@@ -49,34 +49,41 @@ class Menu extends dna.hud.Panel {
     selectNext() {
         this.selected ++
         if (this.selected >= this.items.length) this.selectFirst()
+        sfx.play('move', .6)
     }
 
     selectPrev() {
         this.selected --
         if (this.selected < 0) this.selectLast()
+        sfx.play('move', .6)
     }
 
     selectFirst() {
         this.selected = 0
+        sfx.play('move', .6)
     }
 
     selectLast() {
         this.selected = this.items.length - 1
+        sfx.play('move', .6)
     }
 
     action() {
         const item = this.items[this.selected]
         if (item && item.action) item.action(this)
+        sfx.play('beep2', .6)
     }
 
     actionNext() {
         const item = this.items[this.selected]
         if (item && item.actionNext) item.actionNext(this)
+        sfx.play('move2', .4)
     }
 
     actionPrev() {
         const item = this.items[this.selected]
         if (item && item.actionPrev) item.actionPrev(this)
+        sfx.play('move2', .4)
     }
 
     bind() {
