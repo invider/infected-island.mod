@@ -25,7 +25,13 @@ class Infected {
     }
 
     isInfected(x, y) {
-        return this.map[y*this.w + x]
+        return (this.map[y*this.w + x] > 0)
+    }
+
+    getInfected(x, y) {
+        const i = this.map[y*this.w + x]
+        if (!i) return 0
+        else return i
     }
 
     infect(x, y, type) {
@@ -45,7 +51,7 @@ class Infected {
     }
 
     cure(x, y, type) {
-        if (this.isInfected(x, y) === 1) {
+        if (this.getInfected(x, y) === 1) {
             this.cells --
             this.map[y*this.w + x] = type || 0
             return true
@@ -72,7 +78,7 @@ class Infected {
     }
 
     spread(x, y, t, i) {
-        if (!this.isInfected(x, y)) {
+        if (this.getInfected(x, y) === 0) {
             const infected = this.infect(x, y)
 
             if (t === 2 && infected) {
@@ -135,7 +141,7 @@ class Infected {
     }
 
     contain(x, y, i) {
-        if (this.isInfected(x, y) > 0) {
+        if (this.getInfected(x, y) > 0) {
             this.cure(x, y)
             return true
 

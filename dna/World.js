@@ -77,7 +77,7 @@ class World extends sys.Frame {
         const e = this.getEntity(x, y)
         if (e) return e.symbol
 
-        const source = this.infected.isInfected(x, y)
+        const source = this.infected.getInfected(x, y)
         if (source === 2) return env.style.infectionSource
         if (source === -1) return env.style.guard
 
