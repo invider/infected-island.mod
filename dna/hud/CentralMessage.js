@@ -8,7 +8,7 @@ class CentralMessage {
 
     draw() {
         const tx = this.__
-        const w = tx.tw
+        const w = tx.tw - lab.textMode.sidePanel.w
         const h = tx.th
         const len = this.label.length
 

@@ -11,8 +11,8 @@ class Hero extends dna.bad.Person {
         this.attach(dna.pod.log)
     }
 
-    infect() {
-        super.infect()
+    infect(n) {
+        super.infect(n)
         if (!this.dead) sfx.play('move')
     }
 

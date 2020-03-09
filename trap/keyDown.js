@@ -1,7 +1,6 @@
 function keyDown(e) {
     if (e.repeat) return
 
-
     const action = env.bind.keyMap[e.code]
     if (action && !e.metaKey && !e.altKey && !e.ctrlKey) {
         if (lab.world && lab.world.paused) lab.world.paused = false

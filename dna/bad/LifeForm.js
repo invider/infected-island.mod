@@ -26,8 +26,9 @@ class LifeForm extends dna.Mob {
         */
     }
 
-    infect() {
-        this.health --
+    infect(n) {
+        if (!n) n = 1
+        this.health -= n
 
         if (this.health <= 0) {
             this.kill()

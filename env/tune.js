@@ -31,4 +31,6 @@ const tune = {
     rabbitProcreateFood: 9,
 
     healthForFood: 25,
+    spoiledFoodPenalty: 15,
+    infectedStonePenalty: 5,
 }
