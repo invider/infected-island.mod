@@ -9,13 +9,22 @@ function act(action) {
 
     if (action < 4) {
         hero.move.dir(action)
+        sfx.play('step', .5)
         return true
     }
 
     switch(action) {
-        case 4: hero.pack.selectNext(); break;
-        case 5: hero.pack.selectPrev(); break;
-        case 6: hero.pack.use(); break;
+        case 4:
+            sfx.play('move', .4)
+            hero.pack.selectNext()
+            break
+        case 5:
+            sfx.play('move', .4)
+            hero.pack.selectPrev()
+            break
+        case 6:
+            hero.pack.use()
+            break
     }
 }
 

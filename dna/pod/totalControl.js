@@ -8,6 +8,7 @@ const totalControl = augment({}, control)
 
 totalControl.alias = 'control'
 
+// rename original control act()
 totalControl.react = totalControl.act
 
 totalControl.act = function act(action) {

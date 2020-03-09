@@ -15,19 +15,16 @@ class Person extends dna.bad.LifeForm {
             // grab the stone
             if (this.pack.grab('stones')) {
                 e.dead = true
-                sfx.play('selectLow')
                 this.log('+1 stone')
             }
         } else if (e.symbol === '*') {
             const plusHealth = this.eat()
             if (plusHealth > 0) {
                 e.dead = true
-                sfx.play('selectLow')
                 this.log(`+${plusHealth} health`)
 
             } else if (this.pack.grab('food')) {
                 e.dead = true
-                sfx.play('selectLow')
                 this.log('+1 food')
 
             }
