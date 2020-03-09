@@ -3,5 +3,6 @@
 
 # collider.jam artifacts
 types.ts
+*.out
 dist
 
