@@ -33,7 +33,6 @@ class Person extends dna.bad.LifeForm {
             } else {
                 const plusHealth = this.eat()
                 if (plusHealth > 0) {
-                    sfx.play('selectLow')
                     this.log(`+${plusHealth} health`)
 
                 } else if (this.pack.grab('food')) {
